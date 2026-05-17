@@ -320,8 +320,8 @@ export default function QuickOrderPage() {
 
       {/* --- 4. MINI CART BOTTOM SHEET (Xem nhanh đơn hàng) --- */}
       {isCartOpen && (
-        <div className="absolute inset-0 z-50 flex items-end">
-          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsCartOpen(false)}></div>
+        <div className="fixed inset-0 z-50 flex items-end">
+          <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsCartOpen(false)}></div>
           <div className="w-full md:max-w-md mx-auto md:mb-8 bg-slate-50 rounded-t-3xl md:rounded-3xl relative z-10 animate-in slide-in-from-bottom flex flex-col max-h-[85vh] shadow-2xl">
              
              {/* Header Mini Cart */}
@@ -363,8 +363,8 @@ export default function QuickOrderPage() {
 
       {/* --- 5. VOUCHER BOTTOM SHEET --- */}
       {isVoucherOpen && (
-        <div className="absolute inset-0 z-50 flex items-end md:items-center justify-center">
-          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsVoucherOpen(false)}></div>
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
+          <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsVoucherOpen(false)}></div>
           <div className="w-full md:max-w-md bg-white rounded-t-3xl md:rounded-3xl p-5 md:p-6 relative z-10 animate-in slide-in-from-bottom md:zoom-in-95 shadow-2xl">
              <div className="flex justify-between items-center mb-6">
                 <h3 className="text-lg font-black text-slate-800">Kho Voucher của bạn</h3>
