@@ -250,6 +250,87 @@ export default function B2BStorefront() {
                 ))}
              </div>
           </div>
+
+          {/* SẢN PHẨM THEO MÙA (MOBILE) */}
+          <div className="px-4 pb-10">
+             <h3 className="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
+                <Sun size={20} className="text-amber-500" /> Sản phẩm theo Mùa
+             </h3>
+             <div className="grid grid-cols-2 gap-3">
+                {TOP_PRODUCTS.map((prod) => (
+                   <div key={`m-season-${prod.id}`} className="bg-white rounded-2xl p-3 border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all flex flex-col group">
+                      <div className="w-full aspect-square bg-slate-50 rounded-xl mb-3 flex items-center justify-center p-2 cursor-pointer overflow-hidden">
+                         <img src={prod.image} alt={prod.name} className="max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300" />
+                      </div>
+                      <h4 className="text-xs font-bold text-slate-800 leading-snug line-clamp-2 mb-2 flex-1 cursor-pointer">{prod.name}</h4>
+                      
+                      <div className="flex items-end justify-between mt-auto pt-2 border-t border-slate-100">
+                         <div className="text-sm font-black text-slate-900 leading-none">{prod.price.toLocaleString()} <span className="text-[9px] font-bold text-slate-500">đ/{prod.unit}</span></div>
+                         <button 
+                           onClick={() => handleAddToCart(prod.name)}
+                           className="w-7 h-7 bg-slate-100 text-slate-600 rounded-full flex items-center justify-center transition-all active:scale-95 shrink-0"
+                         >
+                            <Plus size={14} strokeWidth={2.5} />
+                         </button>
+                      </div>
+                   </div>
+                ))}
+             </div>
+          </div>
+
+          {/* NHÀ THUỐC NÀO CŨNG CẦN (MOBILE) */}
+          <div className="px-4 pb-10">
+             <h3 className="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
+                <Pill size={20} className="text-emerald-500" /> Nhà thuốc nào cũng cần
+             </h3>
+             <div className="grid grid-cols-2 gap-3">
+                {TOP_PRODUCTS.map((prod) => (
+                   <div key={`m-pharmacy-${prod.id}`} className="bg-white rounded-2xl p-3 border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all flex flex-col group">
+                      <div className="w-full aspect-square bg-slate-50 rounded-xl mb-3 flex items-center justify-center p-2 cursor-pointer overflow-hidden">
+                         <img src={prod.image} alt={prod.name} className="max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300" />
+                      </div>
+                      <h4 className="text-xs font-bold text-slate-800 leading-snug line-clamp-2 mb-2 flex-1 cursor-pointer">{prod.name}</h4>
+                      
+                      <div className="flex items-end justify-between mt-auto pt-2 border-t border-slate-100">
+                         <div className="text-sm font-black text-slate-900 leading-none">{prod.price.toLocaleString()} <span className="text-[9px] font-bold text-slate-500">đ/{prod.unit}</span></div>
+                         <button 
+                           onClick={() => handleAddToCart(prod.name)}
+                           className="w-7 h-7 bg-slate-100 text-slate-600 rounded-full flex items-center justify-center transition-all active:scale-95 shrink-0"
+                         >
+                            <Plus size={14} strokeWidth={2.5} />
+                         </button>
+                      </div>
+                   </div>
+                ))}
+             </div>
+          </div>
+
+          {/* BÁC SĨ NÀO CŨNG CẦN (MOBILE) */}
+          <div className="px-4 pb-10">
+             <h3 className="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
+                <ShieldPlus size={20} className="text-blue-500" /> Bác Sĩ nào cũng cần
+             </h3>
+             <div className="grid grid-cols-2 gap-3">
+                {TOP_PRODUCTS.map((prod) => (
+                   <div key={`m-doctor-${prod.id}`} className="bg-white rounded-2xl p-3 border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all flex flex-col group">
+                      <div className="w-full aspect-square bg-slate-50 rounded-xl mb-3 flex items-center justify-center p-2 cursor-pointer overflow-hidden">
+                         <img src={prod.image} alt={prod.name} className="max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300" />
+                      </div>
+                      <h4 className="text-xs font-bold text-slate-800 leading-snug line-clamp-2 mb-2 flex-1 cursor-pointer">{prod.name}</h4>
+                      
+                      <div className="flex items-end justify-between mt-auto pt-2 border-t border-slate-100">
+                         <div className="text-sm font-black text-slate-900 leading-none">{prod.price.toLocaleString()} <span className="text-[9px] font-bold text-slate-500">đ/{prod.unit}</span></div>
+                         <button 
+                           onClick={() => handleAddToCart(prod.name)}
+                           className="w-7 h-7 bg-slate-100 text-slate-600 rounded-full flex items-center justify-center transition-all active:scale-95 shrink-0"
+                         >
+                            <Plus size={14} strokeWidth={2.5} />
+                         </button>
+                      </div>
+                   </div>
+                ))}
+             </div>
+          </div>
         </main>
 
 
