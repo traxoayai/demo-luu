@@ -168,9 +168,9 @@ export default function QuickOrderPage() {
             <div key={p.id} className={`bg-white rounded-2xl p-3 flex gap-3 transition-all ${inCart ? 'border-2 border-orange-400 shadow-md ring-4 ring-orange-50' : 'border border-slate-200 shadow-sm'}`}>
               
               {/* Ảnh & Nút Chi tiết */}
-              <div className="w-20 shrink-0 flex flex-col gap-1.5">
-                <div className="w-20 h-20 bg-white rounded-xl border border-slate-100 overflow-hidden p-1 relative cursor-pointer">
-                  <img src={p.image} alt={p.name} className="w-full h-full object-contain mix-blend-multiply" />
+              <div className="w-24 md:w-28 shrink-0 flex flex-col gap-2">
+                <div className="w-24 h-24 md:w-28 md:h-28 bg-white rounded-xl border border-slate-100 overflow-hidden p-1.5 relative cursor-pointer group">
+                  <img src={p.image} alt={p.name} className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform" />
                   <span className="absolute bottom-0 left-0 right-0 bg-slate-800/80 text-white text-[9px] font-bold text-center py-0.5 backdrop-blur-sm">{p.unit}</span>
                 </div>
                 <button className="w-full flex items-center justify-center gap-1 py-1.5 bg-slate-50 hover:bg-orange-50 text-slate-500 hover:text-orange-600 rounded-lg transition-colors border border-transparent hover:border-orange-200 active:scale-95">
