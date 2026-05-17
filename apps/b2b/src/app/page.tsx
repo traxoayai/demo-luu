@@ -404,10 +404,10 @@ export default function B2BStorefront() {
                  <span className={`text-[10px] ${activeTab === 'categories' ? 'font-bold' : 'font-medium'}`}>Danh mục</span>
               </button>
 
-              <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 w-16 transition-colors ${activeTab === 'home' ? 'text-orange-600' : 'text-slate-400 hover:text-slate-600'}`}>
+              <Link href="/quick-order" className={`flex flex-col items-center justify-center gap-1 w-16 transition-colors ${activeTab === 'home' ? 'text-orange-600' : 'text-slate-400 hover:text-slate-600'}`}>
                  <ShoppingBag size={22} className={activeTab === 'home' ? 'fill-orange-50 text-orange-600' : ''} />
                  <span className={`text-[10px] ${activeTab === 'home' ? 'font-bold' : 'font-medium'}`}>Đặt hàng</span>
-              </button>
+              </Link>
 
               <div className="w-16"></div>
 
