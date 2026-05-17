@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronLeft, Trash2, Plus, Minus, Ticket, MapPin, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ChevronLeft, Trash2, Plus, Minus, Ticket, MapPin, ShieldCheck, CheckCircle2, AlertCircle, Truck } from 'lucide-react';
 import Link from 'next/link';
 
 export default function CartPage() {
@@ -18,8 +18,8 @@ export default function CartPage() {
   };
 
   const CART_ITEMS = [
-    { id: 1, name: 'Amoxicillin 500mg', sku: 'AMX-500', unit: 'Hộp 10 vỉ', price: 45000, img: 'https://images.unsplash.com/photo-1584308666744-24d5e478ac5c?w=400&q=80', stock: 120 },
-    { id: 2, name: 'Panadol Extra Đỏ', sku: 'PND-EXT', unit: 'Hộp 15 vỉ', price: 125000, img: 'https://images.unsplash.com/photo-1628771065518-0d82f1938462?w=400&q=80', stock: 50 },
+    { id: 1, name: 'Amoxicillin 500mg', sku: 'AMX-500', unit: 'Hộp 10 vỉ', price: 45000, img: 'https://cdn.thegioididong.com/Products/Images/10026/230085/amoxicillin-500mg-brawn-h-100v-2-1.jpg', stock: 120 },
+    { id: 2, name: 'Panadol Extra Đỏ', sku: 'PND-EXT', unit: 'Hộp 15 vỉ', price: 125000, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTejcjXCkTh8ncMSToEfQM_4AjhRc6x0MT3zg&s', stock: 120 },
   ];
 
   const subtotal = CART_ITEMS.reduce((sum, item) => sum + item.price * (quantities[item.id] || 1), 0);
@@ -50,7 +50,7 @@ export default function CartPage() {
                 <div key={item.id} className="bg-white p-4 rounded-3xl border border-slate-200 shadow-sm flex gap-4 md:gap-6 relative overflow-hidden group">
                    
                    {/* Ảnh sản phẩm */}
-                   <div className="w-24 h-24 md:w-32 md:h-32 bg-slate-50 rounded-2xl flex items-center justify-center p-2 shrink-0 border border-slate-100">
+                   <div className="w-36 h-36 md:w-32 md:h-32 bg-slate-50 rounded-2xl flex items-center justify-center p-2 shrink-0 border border-slate-100">
                       <img src={item.img} alt={item.name} className="max-h-full object-cover mix-blend-multiply rounded-xl" />
                    </div>
 
@@ -144,12 +144,22 @@ export default function CartPage() {
                 </div>
 
                 {/* Địa chỉ giao */}
-                <div className="bg-slate-50 rounded-2xl p-4 flex items-start gap-3 mb-6 border border-slate-100 cursor-pointer hover:border-blue-300 transition-colors">
+                <div className="bg-slate-50 rounded-2xl p-4 flex items-start gap-3 mb-3 border border-slate-100 cursor-pointer hover:border-blue-300 transition-colors">
                    <MapPin size={20} className="text-blue-500 mt-1 shrink-0" />
                    <div>
                       <h4 className="text-sm font-bold text-slate-800">Nhà thuốc An Khang (Chi nhánh 1)</h4>
                       <p className="text-xs font-medium text-slate-500 mt-1 leading-relaxed">123 Nguyễn Thị Minh Khai, Phường Bến Thành, Quận 1, TP. Hồ Chí Minh</p>
                    </div>
+                </div>
+
+                {/* Vận chuyển */}
+                <div className="bg-slate-50 rounded-2xl p-4 flex items-start gap-3 mb-6 border border-slate-100 cursor-pointer hover:border-emerald-300 transition-colors">
+                   <Truck size={20} className="text-emerald-500 mt-0.5 shrink-0" />
+                   <div className="flex-1">
+                      <h4 className="text-sm font-bold text-slate-800">Giao hàng Tiêu chuẩn</h4>
+                      <p className="text-xs font-medium text-slate-500 mt-1 leading-relaxed">Nhận hàng dự kiến: 20/05 - 21/05/2026</p>
+                   </div>
+                   <span className="text-sm font-bold text-emerald-600">Miễn phí</span>
                 </div>
 
                 <button className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-black text-lg py-4 rounded-full shadow-xl shadow-orange-500/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2">

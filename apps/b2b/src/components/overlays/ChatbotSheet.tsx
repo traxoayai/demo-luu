@@ -24,9 +24,9 @@ export default function ChatbotSheet({ isOpen, onClose }: ChatbotSheetProps) {
       {/* Sheet Content */}
       <div className={`fixed z-[110] bg-slate-50 flex flex-col shadow-2xl overflow-hidden
         /* Mobile: Trượt từ dưới lên, bo tròn góc trên */
-        bottom-0 left-0 right-0 h-[85vh] rounded-t-[32px] animate-in slide-in-from-bottom-full duration-300
+        bottom-0 left-0 right-0 h-[85vh] rounded-t-[32px] animate-in slide-in-from-bottom-full duration-200
         /* Desktop: Trượt từ phải sang, full height */
-        md:top-0 md:bottom-0 md:right-0 md:left-auto md:w-[420px] md:h-full md:rounded-none md:slide-in-from-right-full
+        md:top-0 md:bottom-0 md:right-0 md:left-auto md:w-[620px] md:h-full md:rounded-none md:slide-in-from-right-full
       `}>
         
         {/* Header */}
@@ -97,7 +97,7 @@ export default function ChatbotSheet({ isOpen, onClose }: ChatbotSheetProps) {
                  
                  {/* Product Card inside chat */}
                  <div className="bg-white border border-slate-200 rounded-xl p-3 flex gap-3 shadow-sm hover:border-orange-300 transition-colors cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1584308666744-24d5e478ac5c?q=80&w=2070&auto=format&fit=crop" alt="Thuốc" className="w-16 h-16 rounded-lg object-cover" />
+                    <img src="https://cdn.thegioididong.com/Products/Images/10026/230085/amoxicillin-500mg-brawn-h-100v-2-1.jpg" alt="Thuốc" className="w-16 h-16 rounded-lg object-cover" />
                     <div>
                        <h4 className="text-sm font-bold text-slate-800 line-clamp-1">Amoxicillin 500mg</h4>
                        <div className="text-xs text-slate-500 mb-1">Hộp 10 vỉ x 10 viên</div>
