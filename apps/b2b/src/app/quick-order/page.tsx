@@ -110,6 +110,7 @@ export default function QuickOrderPage() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isVoucherOpen, setIsVoucherOpen] = useState(false);
   const [selectedVoucher, setSelectedVoucher] = useState<{ id: string, code: string, title: string, desc: string, discount: number, minOrder: number } | null>(null);
+  const [selectedProductDetail, setSelectedProductDetail] = useState<any>(null);
 
   // Cart calculations
   const totalAmount = products.reduce((sum, p) => sum + (p.price * p.qty), 0);
@@ -173,7 +174,7 @@ export default function QuickOrderPage() {
                   <img src={p.image} alt={p.name} className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform" />
                   <span className="absolute bottom-0 left-0 right-0 bg-slate-800/80 text-white text-[9px] font-bold text-center py-0.5 backdrop-blur-sm">{p.unit}</span>
                 </div>
-                <button className="w-full flex items-center justify-center gap-1 py-1.5 bg-slate-50 hover:bg-orange-50 text-slate-500 hover:text-orange-600 rounded-lg transition-colors border border-transparent hover:border-orange-200 active:scale-95">
+                <button onClick={() => setSelectedProductDetail(p)} className="w-full flex items-center justify-center gap-1 py-1.5 bg-slate-50 hover:bg-orange-50 text-slate-500 hover:text-orange-600 rounded-lg transition-colors border border-transparent hover:border-orange-200 active:scale-95">
                    <Info size={12} strokeWidth={2.5} />
                    <span className="text-[9px] font-bold uppercase tracking-wider">Chi tiết</span>
                 </button>
@@ -413,6 +414,82 @@ export default function QuickOrderPage() {
                   );
                 })}
              </div>
+          </div>
+        </div>
+      )}
+
+      {/* --- 6. PRODUCT DETAIL MODAL --- */}
+      {selectedProductDetail && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onClick={() => setSelectedProductDetail(null)}></div>
+          <div className="w-full max-w-md bg-white rounded-[2rem] overflow-hidden relative z-10 animate-in zoom-in-95 shadow-2xl flex flex-col max-h-[90vh]">
+            <button onClick={() => setSelectedProductDetail(null)} className="absolute top-4 right-4 p-2 bg-slate-100 hover:bg-slate-200 rounded-full text-slate-600 transition-colors z-20"><X size={20}/></button>
+            
+            <div className="relative aspect-[4/3] w-full bg-white flex-shrink-0 p-8 border-b border-slate-100">
+               <img src={selectedProductDetail.image} alt={selectedProductDetail.name} className="w-full h-full object-contain mix-blend-multiply" />
+            </div>
+            
+            <div className="p-6 overflow-y-auto custom-scrollbar flex-1">
+               <div className="mb-2 flex items-center gap-2">
+                  <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded uppercase">{selectedProductDetail.unit}</span>
+                  {selectedProductDetail.isLowStock && <span className="px-2 py-0.5 bg-red-50 text-red-600 text-[10px] font-bold rounded uppercase">Sắp hết hàng</span>}
+               </div>
+               <h2 className="text-xl font-black text-slate-800 leading-tight mb-2">{selectedProductDetail.name}</h2>
+               <div className="flex items-center gap-3 mb-6">
+                  <div className="text-2xl font-black text-orange-600">{selectedProductDetail.price.toLocaleString()}đ</div>
+                  <div className="text-sm font-semibold text-slate-400 line-through">{(selectedProductDetail.price * 1.1).toLocaleString()}đ</div>
+               </div>
+               
+               {selectedProductDetail.promo && (
+                  <div className="mb-6 p-4 bg-gradient-to-r from-orange-50 to-red-50 border border-orange-100 rounded-2xl flex items-center gap-3">
+                     <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-orange-500 shadow-sm shrink-0">
+                        {selectedProductDetail.promo.type === 'gift' ? <Gift size={20}/> : <Tag size={20}/>}
+                     </div>
+                     <div>
+                        <div className="font-bold text-slate-800 text-sm">{selectedProductDetail.promo.text}</div>
+                        <div className="text-[11px] text-slate-500 font-medium">Chương trình áp dụng đến hết tháng này</div>
+                     </div>
+                  </div>
+               )}
+
+               <div className="space-y-3">
+                  <div className="flex justify-between py-2.5 border-b border-slate-100">
+                     <span className="text-sm text-slate-500 font-medium">Hoạt chất chính</span>
+                     <span className="text-sm text-slate-800 font-bold text-right max-w-[60%]">{selectedProductDetail.ingredient}</span>
+                  </div>
+                  <div className="flex justify-between py-2.5 border-b border-slate-100">
+                     <span className="text-sm text-slate-500 font-medium">Hạn sử dụng (Date)</span>
+                     <span className="text-sm text-slate-800 font-bold">{selectedProductDetail.expiry}</span>
+                  </div>
+                  <div className="flex justify-between py-2.5 border-b border-slate-100">
+                     <span className="text-sm text-slate-500 font-medium">Tồn kho hiện tại</span>
+                     <span className="text-sm text-slate-800 font-bold">{selectedProductDetail.stock} {selectedProductDetail.unit.toLowerCase()}</span>
+                  </div>
+                  <div className="flex justify-between py-2.5 border-b border-slate-100">
+                     <span className="text-sm text-slate-500 font-medium">Nhà sản xuất</span>
+                     <span className="text-sm text-slate-800 font-bold">Dược phẩm Nam Việt</span>
+                  </div>
+               </div>
+            </div>
+            
+            <div className="p-4 bg-white border-t border-slate-100 shrink-0">
+               {selectedProductDetail.qty > 0 ? (
+                  <div className="flex items-center justify-between gap-4">
+                     <div className="flex items-center bg-slate-50 rounded-xl h-[52px] border border-slate-200 overflow-hidden flex-1 max-w-[160px]">
+                        <button onClick={() => updateQty(selectedProductDetail.id, -1)} className="w-12 h-full flex items-center justify-center text-slate-600 hover:bg-slate-200"><Minus size={18}/></button>
+                        <input type="number" value={selectedProductDetail.qty} readOnly className="w-full h-full bg-transparent text-center text-base font-black text-slate-800 outline-none border-x border-slate-200" />
+                        <button onClick={() => updateQty(selectedProductDetail.id, 1)} className="w-12 h-full flex items-center justify-center text-orange-600 hover:bg-orange-100"><Plus size={18}/></button>
+                     </div>
+                     <button onClick={() => setSelectedProductDetail(null)} className="flex-1 h-[52px] bg-slate-800 hover:bg-slate-900 active:scale-95 text-white font-bold rounded-xl transition-all shadow-lg">
+                        Xong
+                     </button>
+                  </div>
+               ) : (
+                  <button onClick={() => updateQty(selectedProductDetail.id, 1)} className="w-full h-[52px] bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 active:scale-95 text-white font-bold rounded-xl shadow-lg shadow-orange-200 transition-all flex items-center justify-center gap-2">
+                     <ShoppingCart size={18} /> Thêm vào giỏ hàng
+                  </button>
+               )}
+            </div>
           </div>
         </div>
       )}
