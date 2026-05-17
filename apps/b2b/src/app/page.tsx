@@ -12,6 +12,8 @@ import {
   Users, BookOpen, History, ShoppingBag
 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+import ChatbotSheet from '../components/overlays/ChatbotSheet';
 
 // --- MOCK DATA ---
 const BANNERS = [
@@ -55,6 +57,7 @@ export default function B2BStorefront() {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showBotMessage, setShowBotMessage] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Auto-slide banner
   useEffect(() => {
@@ -350,10 +353,10 @@ export default function B2BStorefront() {
                     <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg"><BookOpen size={18}/></div>
                  </button>
 
-                 <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Mở Giao lưu & Kết nối");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-8 fade-in duration-200 delay-[120ms]">
+                 <Link href="/community" onClick={(e) => { e.stopPropagation(); toggleFabMenu();}} className="flex items-center gap-3 animate-in slide-in-from-bottom-8 fade-in duration-200 delay-[120ms]">
                     <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Giao lưu & Kết nối</span>
                     <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg"><Users size={18}/></div>
-                 </button>
+                 </Link>
 
                  <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Xem Sản phẩm mới");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-6 fade-in duration-200 delay-[80ms]">
                     <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Sản phẩm mới</span>
@@ -408,7 +411,7 @@ export default function B2BStorefront() {
 
               <div className="w-16"></div>
 
-              <button onClick={() => setActiveTab('cart')} className={`flex flex-col items-center gap-1 w-16 transition-colors relative ${activeTab === 'cart' ? 'text-orange-600' : 'text-slate-400 hover:text-slate-600'}`}>
+              <Link href="/cart" className={`flex flex-col items-center justify-center gap-1 w-16 transition-colors relative ${activeTab === 'cart' ? 'text-orange-600' : 'text-slate-400 hover:text-slate-600'}`}>
                  <ShoppingCart size={22} className={activeTab === 'cart' ? 'fill-orange-50 text-orange-600' : ''} />
                  {cartCount > 0 && (
                    <span className="absolute top-0 right-3 bg-red-500 text-white text-[9px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center ring-2 ring-white">
@@ -416,7 +419,7 @@ export default function B2BStorefront() {
                    </span>
                  )}
                  <span className={`text-[10px] ${activeTab === 'cart' ? 'font-bold' : 'font-medium'}`}>Giỏ hàng</span>
-              </button>
+              </Link>
               
               <button onClick={() => setActiveTab('profile')} className={`flex flex-col items-center gap-1 w-16 transition-colors relative ${activeTab === 'profile' ? 'text-orange-600' : 'text-slate-400 hover:text-slate-600'}`}>
                  <User size={22} className={activeTab === 'profile' ? 'fill-orange-50 text-orange-600' : ''} />
@@ -498,8 +501,7 @@ export default function B2BStorefront() {
                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white"></span>
                    <span className="text-[10px] font-bold uppercase tracking-wider">Thông báo</span>
                 </div>
-
-                <div className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors relative" onClick={() => showToast("Mở giỏ hàng")}>
+                <Link href="/cart" className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors relative">
                    <div className="relative">
                       <ShoppingCart size={24} />
                       {cartCount > 0 && (
@@ -509,7 +511,7 @@ export default function B2BStorefront() {
                       )}
                    </div>
                    <span className="text-[10px] font-bold uppercase tracking-wider mt-1">Giỏ hàng</span>
-                </div>
+                </Link>
              </div>
           </div>
 
@@ -821,13 +823,15 @@ export default function B2BStorefront() {
            </div>
         )}
         <button 
-          onClick={() => { setShowBotMessage(!showBotMessage); showToast("Trợ lý AI đang sẵn sàng hỗ trợ..."); }}
+          onClick={() => setIsChatOpen(true)}
           className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-tr from-orange-400 to-red-500 rounded-full flex items-center justify-center text-white shadow-lg shadow-orange-500/30 active:scale-90 transition-transform pointer-events-auto ${showBotMessage ? 'animate-none' : 'animate-bounce hover:animate-none'}`}
         >
           <Bot size={24} className="md:w-7 md:h-7" />
           <span className="absolute top-0 right-0 w-3 h-3 bg-white border-2 border-orange-500 rounded-full"></span>
         </button>
       </div>
+
+      <ChatbotSheet isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
     </div>
   );
