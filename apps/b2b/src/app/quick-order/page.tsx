@@ -174,7 +174,7 @@ export default function QuickOrderPage() {
                   <img src={p.image} alt={p.name} className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform" />
                   <span className="absolute bottom-0 left-0 right-0 bg-slate-800/80 text-white text-[9px] font-bold text-center py-0.5 backdrop-blur-sm">{p.unit}</span>
                 </div>
-                <button onClick={() => setSelectedProductDetail(p)} className="w-full flex items-center justify-center gap-1 py-1.5 bg-slate-50 hover:bg-orange-50 text-slate-500 hover:text-orange-600 rounded-lg transition-colors border border-transparent hover:border-orange-200 active:scale-95">
+                <button onClick={() => setSelectedProductDetail(p)} className="w-full flex items-center justify-center gap-1 py-1.5 bg-orange-50/50 hover:bg-orange-50 text-orange-600 rounded-lg transition-colors border border-orange-200 hover:border-orange-300 active:scale-95">
                    <Info size={12} strokeWidth={2.5} />
                    <span className="text-[9px] font-bold uppercase tracking-wider">Chi tiết</span>
                 </button>
