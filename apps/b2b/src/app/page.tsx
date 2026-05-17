@@ -578,11 +578,11 @@ export default function B2BStorefront() {
              </div>
 
              <nav className="flex gap-6 text-sm font-bold text-slate-600">
-                <span className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><Zap size={16} className="text-orange-500"/> Đặt hàng nhanh</span>
+                <Link href="/quick-order" className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><Zap size={16} className="text-orange-500"/> Đặt hàng nhanh</Link>
                 <span className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><History size={16} className="text-orange-500"/> Tạo đơn Tự động (Lịch sử)</span>
                 <span className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><Gift size={16} className="text-red-500"/> Khuyến mãi</span>
                 <span className="hover:text-orange-600 cursor-pointer">Sản phẩm mới</span>
-                <span className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><Users size={16} className="text-blue-500"/> Giao lưu & Kết nối</span>
+                <Link href="/community" className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><Users size={16} className="text-blue-500"/> Giao lưu & Kết nối</Link>
                 <span className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><BookOpen size={16} className="text-emerald-500"/> Khóa học & Kiến thức</span>
              </nav>
           </div>

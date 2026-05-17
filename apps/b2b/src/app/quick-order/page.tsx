@@ -11,7 +11,7 @@ import {
 import Link from 'next/link';
 
 // --- MOCK DATA ---
-const PRODUCTS = [
+const BASE_PRODUCTS = [
   {
     id: 1,
     name: 'Tránh Thai New Choice Nam Hà (25 vỉ x 28v)',
@@ -60,8 +60,43 @@ const PRODUCTS = [
     qty: 10,
     ingredient: 'Paracetamol 500mg, Caffeine 65mg',
     promo: { type: 'gift', text: 'Tặng 1 áo mưa khi mua 50 hộp' }
+  },
+  {
+    id: 5,
+    name: 'Khẩu trang y tế Nam Việt (4 lớp)',
+    unit: 'Hộp',
+    price: 35000,
+    stock: 800,
+    expiry: '12/2027',
+    image: 'https://img.tgdd.vn/imgt/ankhang/f_webp,fit_outside,quality_95/https://cdnv2.tgdd.vn/pim/cdn/images/202605/dau-gio-xanh-con-o-3ml-thumb135416.jpg',
+    qty: 0,
+    ingredient: 'Vải kháng khuẩn',
+    promo: null
+  },
+  {
+    id: 6,
+    name: 'Máy đo huyết áp điện tử Jumper JPD-HA300',
+    unit: 'Cái',
+    price: 650000,
+    stock: 12,
+    expiry: 'N/A',
+    image: 'https://img.tgdd.vn/imgt/ankhang/f_webp,fit_outside,quality_95/https://cdn.tgdd.vn/Products/Images/11298/278991/may-huyet-ap-dien-tu-do-bap-tay-jumper-jpd-ha300-thumb-1-1-600x600.jpg',
+    qty: 0,
+    ingredient: 'Thiết bị y tế',
+    promo: { type: 'discount', text: 'Giảm 50K' }
   }
 ];
+
+const PRODUCTS = Array.from({ length: 30 }).map((_, index) => {
+  const base = BASE_PRODUCTS[index % BASE_PRODUCTS.length];
+  return {
+    ...base,
+    id: index + 1,
+    name: `${base.name} - Lô ${index + 1}`,
+    // Tăng qty ngẫu nhiên cho một số sản phẩm đầu tiên để test giỏ hàng
+    qty: index === 1 ? 5 : index === 3 ? 10 : 0 
+  };
+});
 
 const VOUCHERS = [
   { id: 'v1', code: 'NAMVIET50', title: 'Giảm 50.000đ', desc: 'Cho đơn từ 2.000.000đ', discount: 50000, minOrder: 2000000 },
@@ -194,7 +229,7 @@ export default function QuickOrderPage() {
         })}
         </div>
         <div className="text-center pt-8 pb-12 flex items-center justify-center gap-2 text-slate-400">
-           <PackageCheck size={16}/> <p className="text-[11px] font-medium uppercase tracking-wider">Đã hiển thị toàn bộ 4 sản phẩm</p>
+           <PackageCheck size={16}/> <p className="text-[11px] font-medium uppercase tracking-wider">Đã hiển thị toàn bộ 30 sản phẩm</p>
         </div>
       </main>
 
