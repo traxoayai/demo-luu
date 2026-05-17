@@ -104,25 +104,29 @@ export default function QuickOrderPage() {
   };
 
   return (
-    <div className="mx-auto max-w-md h-screen bg-slate-50 flex flex-col font-sans relative overflow-hidden shadow-2xl sm:border sm:border-slate-200 sm:rounded-[2rem] sm:my-8 selection:bg-orange-200">
+    <div className="min-h-screen bg-slate-50 pb-32 lg:pb-24 flex flex-col font-sans relative selection:bg-orange-200">
       
       {/* 1. HEADER TÌM KIẾM */}
-      <header className="sticky top-0 z-30 bg-white px-4 pt-4 pb-2 shadow-sm shrink-0 flex items-center gap-3">
-        <Link href="/" className="w-10 h-10 shrink-0 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-full flex items-center justify-center transition-colors mb-2">
-            <ChevronLeft size={24} />
-        </Link>
-        <div className="flex gap-2 mb-2 flex-1">
-          <div className="relative flex-1 group">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500 transition-colors" size={18} />
-            <input type="text" placeholder="Gõ tên, SKU, hoạt chất..." className="w-full pl-9 pr-10 py-3 bg-slate-100 border border-transparent focus:bg-white focus:border-orange-500 rounded-xl text-sm font-medium outline-none transition-all placeholder:text-slate-400" />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-orange-600 rounded-md"><ScanBarcode size={20} /></button>
-          </div>
-          <button className="w-12 h-[46px] shrink-0 flex items-center justify-center bg-slate-100 rounded-xl text-slate-600 active:bg-slate-200 border border-transparent"><Filter size={20} /></button>
+      <header className="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm shrink-0">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+           <Link href="/" className="w-10 h-10 shrink-0 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-full flex items-center justify-center transition-colors">
+               <ChevronLeft size={24} />
+           </Link>
+           <h1 className="hidden md:block text-xl font-black text-slate-800 tracking-tight mr-4">Đặt hàng nhanh</h1>
+           <div className="flex gap-2 flex-1 max-w-3xl">
+             <div className="relative flex-1 group">
+               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500 transition-colors" size={18} />
+               <input type="text" placeholder="Gõ tên, SKU, hoạt chất..." className="w-full pl-9 pr-10 py-2.5 md:py-3 bg-slate-100 border border-transparent focus:bg-white focus:border-orange-500 rounded-xl text-sm font-medium outline-none transition-all placeholder:text-slate-400" />
+               <button className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-orange-600 rounded-md"><ScanBarcode size={20} /></button>
+             </div>
+             <button className="w-11 h-11 md:w-[46px] md:h-[46px] shrink-0 flex items-center justify-center bg-slate-100 rounded-xl text-slate-600 hover:text-orange-600 hover:bg-orange-50 transition-colors"><Filter size={20} /></button>
+           </div>
         </div>
       </header>
 
       {/* 2. DANH SÁCH SẢN PHẨM */}
-      <main className="flex-1 overflow-y-auto p-3 pb-40 space-y-3 custom-scrollbar bg-slate-100/50">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
         {products.map((p) => {
           const inCart = p.qty > 0;
           return (
@@ -188,18 +192,19 @@ export default function QuickOrderPage() {
             </div>
           );
         })}
-        <div className="text-center pt-2 pb-6 flex items-center justify-center gap-2 text-slate-400">
-           <PackageCheck size={16}/> <p className="text-[11px] font-medium uppercase tracking-wider">Hết danh sách</p>
+        </div>
+        <div className="text-center pt-8 pb-12 flex items-center justify-center gap-2 text-slate-400">
+           <PackageCheck size={16}/> <p className="text-[11px] font-medium uppercase tracking-wider">Đã hiển thị toàn bộ 4 sản phẩm</p>
         </div>
       </main>
 
-      {/* 3. ULTIMATE STICKY CHECKOUT FOOTER */}
-      <footer className={`absolute bottom-0 left-0 w-full transition-transform duration-300 z-30 ${totalItemCount > 0 ? 'translate-y-0' : 'translate-y-full'}`}>
+      {/* 3. ULTIMATE STICKY CHECKOUT FOOTER (RESPONSIVE) */}
+      <footer className={`fixed bottom-0 left-0 w-full transition-transform duration-300 z-40 ${totalItemCount > 0 ? 'translate-y-0' : 'translate-y-full'}`}>
         
-        {/* VOUCHER HOOK: Thanh gợi ý Voucher nằm ngay trên nút thanh toán */}
+        {/* VOUCHER HOOK (MOBILE) */}
         <div 
           onClick={() => setIsVoucherOpen(true)}
-          className={`mx-4 -mb-2 relative z-0 flex items-center justify-between px-4 py-2.5 rounded-t-xl cursor-pointer transition-colors border-t border-x border-dashed ${
+          className={`md:hidden mx-4 -mb-2 relative z-0 flex items-center justify-between px-4 py-2.5 rounded-t-xl cursor-pointer transition-colors border-t border-x border-dashed ${
             selectedVoucher 
               ? 'bg-emerald-50 border-emerald-300 text-emerald-700' 
               : 'bg-orange-50 border-orange-300 text-orange-700 hover:bg-orange-100'
@@ -208,7 +213,7 @@ export default function QuickOrderPage() {
            <div className="flex items-center gap-2">
               <Ticket size={16} className={selectedVoucher ? 'text-emerald-500' : 'text-orange-500'} />
               <span className="text-xs font-bold">
-                 {selectedVoucher ? `Đã áp dụng: ${selectedVoucher.code}` : 'Bạn có 2 mã ưu đãi. Chọn ngay!'}
+                 {selectedVoucher ? `Đã áp dụng: ${selectedVoucher.code}` : 'Bạn có 2 mã ưu đãi!'}
               </span>
            </div>
            {selectedVoucher ? (
@@ -218,36 +223,61 @@ export default function QuickOrderPage() {
            )}
         </div>
 
-        <div className="bg-white rounded-t-3xl shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.15)] border-t border-slate-100 p-4 pb-safe relative z-10">
-          <div className="flex items-center gap-4">
+        <div className="bg-white md:rounded-t-3xl shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.15)] border-t border-slate-200 p-4 md:py-5 pb-safe relative z-10 w-full">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
              
-             {/* Left: Cart Info (Click để mở Mini Cart) */}
-             <div onClick={() => setIsCartOpen(true)} className="flex-1 relative cursor-pointer group p-1 -m-1 rounded-xl hover:bg-slate-50 transition-colors">
-                <div className="flex items-center gap-1.5 mb-1">
-                   <div className="relative">
-                      <ShoppingCart size={18} className="text-slate-600" />
-                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[9px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center border border-white">
-                         {totalItemCount}
+             {/* Left: Voucher Hook (Desktop) + Cart Info */}
+             <div className="flex items-center gap-6 flex-1">
+                {/* VOUCHER HOOK (DESKTOP) */}
+                <div 
+                  onClick={() => setIsVoucherOpen(true)}
+                  className={`hidden md:flex items-center gap-4 px-5 py-3 rounded-2xl cursor-pointer transition-colors border-2 border-dashed ${
+                    selectedVoucher 
+                      ? 'bg-emerald-50 border-emerald-300 text-emerald-700 hover:bg-emerald-100' 
+                      : 'bg-orange-50 border-orange-300 text-orange-700 hover:bg-orange-100'
+                  }`}
+                >
+                   <div className="flex items-center gap-2">
+                      <Ticket size={20} className={selectedVoucher ? 'text-emerald-500' : 'text-orange-500'} />
+                      <span className="text-sm font-bold">
+                         {selectedVoucher ? `Đã áp dụng Voucher: ${selectedVoucher.code}` : 'Bạn có 2 mã ưu đãi. Áp dụng ngay!'}
                       </span>
                    </div>
-                   <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide flex items-center gap-1">
-                      Giỏ hàng <ChevronUp size={12} className="text-slate-400 group-hover:-translate-y-0.5 transition-transform" />
-                   </span>
+                   {selectedVoucher ? (
+                      <span className="text-sm font-black">- {selectedVoucher.discount.toLocaleString()}đ</span>
+                   ) : (
+                      <ChevronUp size={18} className="text-orange-400 rotate-90" />
+                   )}
                 </div>
-                <div className="text-xl font-black text-orange-600 leading-none group-hover:text-orange-700 transition-colors">
-                   {finalAmount.toLocaleString()} <span className="text-sm font-semibold">đ</span>
-                </div>
-                {selectedVoucher && (
-                   <div className="text-[10px] text-slate-400 mt-1 line-through decoration-slate-300">
-                      Gốc: {totalAmount.toLocaleString()} đ
+
+                {/* Cart Info */}
+                <div onClick={() => setIsCartOpen(true)} className="flex-1 md:flex-none relative cursor-pointer group p-2 md:p-3 md:bg-slate-50 md:rounded-2xl rounded-xl hover:bg-slate-100 transition-colors">
+                   <div className="flex items-center gap-1.5 mb-1">
+                      <div className="relative">
+                         <ShoppingCart size={18} className="text-slate-600" />
+                         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[9px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center border border-white">
+                            {totalItemCount}
+                         </span>
+                      </div>
+                      <span className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-wide flex items-center gap-1">
+                         Giỏ hàng <ChevronUp size={12} className="text-slate-400 group-hover:-translate-y-0.5 transition-transform" />
+                      </span>
                    </div>
-                )}
+                   <div className="text-xl md:text-2xl font-black text-orange-600 leading-none group-hover:text-orange-700 transition-colors">
+                      {finalAmount.toLocaleString()} <span className="text-sm font-semibold">đ</span>
+                   </div>
+                   {selectedVoucher && (
+                      <div className="text-[10px] md:text-xs font-bold text-slate-400 mt-1 line-through decoration-slate-300">
+                         Gốc: {totalAmount.toLocaleString()} đ
+                      </div>
+                   )}
+                </div>
              </div>
 
              {/* Right: Big CTA */}
-             <Link href="/cart" className="w-[140px] h-[52px] bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 active:scale-95 text-white font-black rounded-xl shadow-lg shadow-orange-200 transition-all flex flex-col items-center justify-center leading-none border border-orange-400">
-                <span className="text-sm mb-0.5 tracking-wide">ĐẶT NGAY</span>
-                <span className="text-[9px] font-medium text-orange-100 opacity-90">({totalItemCount} mặt hàng)</span>
+             <Link href="/cart" className="w-[140px] md:w-[200px] h-[52px] md:h-[64px] bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 active:scale-95 text-white font-black rounded-xl md:rounded-2xl shadow-lg shadow-orange-200 transition-all flex flex-col items-center justify-center leading-none border border-orange-400">
+                <span className="text-sm md:text-lg mb-0.5 md:mb-1 tracking-wide">ĐẶT NGAY</span>
+                <span className="text-[9px] md:text-xs font-medium text-orange-100 opacity-90">({totalItemCount} mặt hàng)</span>
              </Link>
           </div>
         </div>
@@ -257,10 +287,10 @@ export default function QuickOrderPage() {
       {isCartOpen && (
         <div className="absolute inset-0 z-50 flex items-end">
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsCartOpen(false)}></div>
-          <div className="w-full bg-slate-50 rounded-t-3xl relative z-10 animate-in slide-in-from-bottom flex flex-col max-h-[85vh]">
+          <div className="w-full md:max-w-md mx-auto md:mb-8 bg-slate-50 rounded-t-3xl md:rounded-3xl relative z-10 animate-in slide-in-from-bottom flex flex-col max-h-[85vh] shadow-2xl">
              
              {/* Header Mini Cart */}
-             <div className="p-4 border-b border-slate-200 bg-white rounded-t-3xl shrink-0 flex justify-between items-center shadow-sm z-20">
+             <div className="p-4 border-b border-slate-200 bg-white rounded-t-3xl md:rounded-t-3xl shrink-0 flex justify-between items-center z-20">
                 <div>
                    <h3 className="text-lg font-black text-slate-800">Sản phẩm đã chọn</h3>
                    <p className="text-[11px] font-medium text-slate-500">Tổng cộng: {totalItemCount} mặt hàng</p>
@@ -298,9 +328,9 @@ export default function QuickOrderPage() {
 
       {/* --- 5. VOUCHER BOTTOM SHEET --- */}
       {isVoucherOpen && (
-        <div className="absolute inset-0 z-50 flex items-end">
+        <div className="absolute inset-0 z-50 flex items-end md:items-center justify-center">
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsVoucherOpen(false)}></div>
-          <div className="w-full bg-white rounded-t-3xl p-5 relative z-10 animate-in slide-in-from-bottom shadow-2xl">
+          <div className="w-full md:max-w-md bg-white rounded-t-3xl md:rounded-3xl p-5 md:p-6 relative z-10 animate-in slide-in-from-bottom md:zoom-in-95 shadow-2xl">
              <div className="flex justify-between items-center mb-6">
                 <h3 className="text-lg font-black text-slate-800">Kho Voucher của bạn</h3>
                 <button onClick={() => setIsVoucherOpen(false)} className="p-2 bg-slate-100 hover:bg-slate-200 rounded-full text-slate-600 transition-colors"><X size={20}/></button>

@@ -491,6 +491,17 @@ export default function B2BStorefront() {
              </div>
 
              <div className="flex items-center gap-6 shrink-0">
+                <Link href="/quick-order" className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors group">
+                   <div className="relative">
+                      <Zap size={22} className="group-hover:fill-orange-100 transition-colors" />
+                      <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500"></span>
+                      </span>
+                   </div>
+                   <span className="text-[10px] font-bold uppercase tracking-wider">Đặt thần tốc</span>
+                </Link>
+
                 <div className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors">
                    <FileText size={22} />
                    <span className="text-[10px] font-bold uppercase tracking-wider">Đơn hàng</span>
