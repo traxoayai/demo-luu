@@ -8,6 +8,12 @@ export default function CartPage() {
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({
     1: 10,
     2: 5,
+    3: 2,
+    4: 1,
+    5: 20,
+    6: 3,
+    7: 5,
+    8: 2,
   });
 
   const updateQuantity = (id: number, delta: number) => {
@@ -20,6 +26,12 @@ export default function CartPage() {
   const CART_ITEMS = [
     { id: 1, name: 'Amoxicillin 500mg', sku: 'AMX-500', unit: 'Hộp 10 vỉ', price: 45000, img: 'https://cdn.thegioididong.com/Products/Images/10026/230085/amoxicillin-500mg-brawn-h-100v-2-1.jpg', stock: 120 },
     { id: 2, name: 'Panadol Extra Đỏ', sku: 'PND-EXT', unit: 'Hộp 15 vỉ', price: 125000, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTejcjXCkTh8ncMSToEfQM_4AjhRc6x0MT3zg&s', stock: 120 },
+    { id: 3, name: 'Vitamin PP 500mg Pharbaco', sku: 'VPP-500', unit: 'Hộp 10 vỉ', price: 63500, img: 'https://img.tgdd.vn/imgt/ankhang/f_webp,fit_outside,quality_95/https://cdn.tgdd.vn/Products/Images/11298/278991/may-huyet-ap-dien-tu-do-bap-tay-jumper-jpd-ha300-thumb-1-1-600x600.jpg', stock: 85 },
+    { id: 4, name: 'Máy đo huyết áp điện tử Jumper JPD-HA300', sku: 'JPD-300', unit: 'Cái', price: 650000, img: 'https://img.tgdd.vn/imgt/ankhang/f_webp,fit_outside,quality_95/https://cdn.tgdd.vn/Products/Images/11298/278991/may-huyet-ap-dien-tu-do-bap-tay-jumper-jpd-ha300-thumb-1-1-600x600.jpg', stock: 12 },
+    { id: 5, name: 'Khẩu trang y tế Nam Việt (4 lớp)', sku: 'KT-NV4', unit: 'Hộp 50 cái', price: 35000, img: 'https://img.tgdd.vn/imgt/ankhang/f_webp,fit_outside,quality_95/https://cdnv2.tgdd.vn/pim/cdn/images/202605/dau-gio-xanh-con-o-3ml-thumb135416.jpg', stock: 500 },
+    { id: 6, name: 'Siro Ho Astex', sku: 'ASTEX-90', unit: 'Chai 90ml', price: 45000, img: 'https://img.tgdd.vn/imgt/ankhang/f_webp,fit_outside,quality_95/https://cdnv2.tgdd.vn/mwg-static/ankhang/Products/Images/10245/327225/cao-dan-salonsip-gel-patch-hop-8-bao-3-mieng-thumb-638792755913157852-600x600.jpg', stock: 45 },
+    { id: 7, name: 'Cao dán Salonpas Hisamitsu', sku: 'SLP-10', unit: 'Hộp 10 x 20 miếng', price: 227700, img: 'https://img.tgdd.vn/imgt/ankhang/f_webp,fit_outside,quality_95/https://cdnv2.tgdd.vn/pim/cdn/images/202509/dau-gio-phat-linh-5ml-thumb-638924930249897112-600x600013023.jpg', stock: 6 },
+    { id: 8, name: 'Berocca Performance', sku: 'BRC-10', unit: 'Tuýp 10 viên', price: 85000, img: 'https://img.tgdd.vn/imgt/ankhang/f_webp,fit_outside,quality_95/https://cdn.tgdd.vn/Products/Images/9921/218987/dau-gio-nau-pharmedic-3ml-thumb01-600x600.jpg', stock: 30 }
   ];
 
   const subtotal = CART_ITEMS.reduce((sum, item) => sum + item.price * (quantities[item.id] || 1), 0);
