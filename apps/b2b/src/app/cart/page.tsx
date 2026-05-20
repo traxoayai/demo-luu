@@ -233,6 +233,22 @@ export default function CartPage() {
                   </button>
                 </div>
               )}
+
+              {/* Nút Thu gọn */}
+              {showExpandButton && isExpanded && (
+                <div className="flex justify-center mt-6">
+                  <button
+                    onClick={() => setIsExpanded(false)}
+                    className="bg-white border border-slate-200 shadow-sm hover:shadow-md hover:bg-slate-50 transition-all active:scale-95 rounded-full px-6 py-3 text-sm font-bold text-slate-700 hover:text-orange-600 flex items-center gap-2 group"
+                  >
+                    Hiển thị thu gọn
+                    <ChevronDown
+                      size={18}
+                      className="rotate-180 transition-transform group-hover:-translate-y-0.5"
+                    />
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex gap-3 items-start text-blue-800 mt-4">

@@ -1,2 +1,11 @@
 @import "tailwindcss";
 @source "../../../packages/ui/src";
+
+html, body {
+  touch-action: manipulation;
+}
+
+/* Fix iOS Auto-zoom on inputs */
+input, textarea, select {
+  font-size: 16px !important;
+}
