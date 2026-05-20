@@ -1,19 +1,20 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { 
-  Search, Bell, ShoppingCart, 
-  Home as HomeIcon, Grid, User, 
-  Zap, ChevronRight, Plus, Heart, 
+import {
+  Search, Bell, ShoppingCart,
+  Grid, User,
+  Zap, ChevronRight, Plus, Heart,
   TrendingUp, Activity, ShieldPlus, Pill,
-  CheckCircle2, Wallet, Sun, ScanBarcode, 
-  FileText, Bot, X, Menu, ArrowRight, Star,
-  PhoneCall, DownloadCloud, ChevronDown, Gift,
-  Users, BookOpen, History, ShoppingBag
+  CheckCircle2, Wallet, Sun, ScanBarcode,
+  FileText, Bot, X, Star,
+  Gift,
+  Users, BookOpen, History
 } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import ChatbotSheet from '../components/overlays/ChatbotSheet';
+import DesktopHeader from '../components/layout/DesktopHeader';
+import MobileBottomNav from '../components/layout/MobileBottomNav';
 
 // --- MOCK DATA ---
 const BANNERS = [
@@ -336,111 +337,13 @@ export default function B2BStorefront() {
           </div>
         </main>
 
-
-
-        {/* OVERLAY CHO MENU TRUNG TÂM (FAB MENU) */}
-        {isFabOpen && (
-           <div className="fixed inset-0 z-[55] bg-slate-900/60 backdrop-blur-sm transition-opacity" onClick={toggleFabMenu}>
-              <div className="absolute bottom-28 left-1/2 -translate-x-1/2 flex flex-col gap-3 items-end w-max pb-4">
-                 
-                 <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Mở Chính sách và Hướng dẫn");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-12 fade-in duration-200 delay-200">
-                    <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Chính sách và Hướng dẫn</span>
-                    <div className="w-10 h-10 rounded-full bg-slate-500 text-white flex items-center justify-center shadow-lg"><FileText size={18}/></div>
-                 </button>
-
-                 <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Mở Khóa học & Kiến thức");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-10 fade-in duration-200 delay-[160ms]">
-                    <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Khóa học & Kiến thức</span>
-                    <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg"><BookOpen size={18}/></div>
-                 </button>
-
-                 <Link href="/community" onClick={(e) => { e.stopPropagation(); toggleFabMenu();}} className="flex items-center gap-3 animate-in slide-in-from-bottom-8 fade-in duration-200 delay-[120ms]">
-                    <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Giao lưu & Kết nối</span>
-                    <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg"><Users size={18}/></div>
-                 </Link>
-
-                 <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Xem Sản phẩm mới");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-6 fade-in duration-200 delay-[80ms]">
-                    <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Sản phẩm mới</span>
-                    <div className="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-lg"><Star size={18}/></div>
-                 </button>
-
-                 <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Mở Khuyến mãi");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-4 fade-in duration-200 delay-[40ms]">
-                    <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Khuyến mãi</span>
-                    <div className="w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center shadow-lg"><Gift size={18}/></div>
-                 </button>
-
-                 <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Mở Tạo đơn Tự động");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-2 fade-in duration-200">
-                    <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Tạo đơn Tự động</span>
-                    <div className="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center shadow-lg"><History size={18}/></div>
-                 </button>
-                 
-              </div>
-           </div>
-        )}
-
-        {/* DANH MỤC MOBILE MODAL */}
-        {activeTab === 'categories' && (
-           <div className="fixed inset-0 z-[45] bg-white pt-24 pb-24 px-4 overflow-y-auto animate-in fade-in slide-in-from-bottom-10">
-              <h2 className="text-xl font-black text-slate-800 mb-6">Tất cả Danh mục</h2>
-              <div className="grid grid-cols-3 gap-4">
-                 {CATEGORIES.map(cat => (
-                    <div key={cat.id} onClick={() => { showToast(`Mở: ${cat.name}`); setActiveTab('home'); }} className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-50 border border-slate-100 active:scale-95 transition-all">
-                       <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${cat.bg}`}>
-                          <cat.icon className={cat.color} size={24} strokeWidth={1.5} />
-                       </div>
-                       <span className="text-[11px] text-slate-700 font-bold text-center leading-tight">{cat.name}</span>
-                    </div>
-                 ))}
-              </div>
-           </div>
-        )}
-
-        {/* BOTTOM NAVIGATION */}
-        <nav className="bg-white border-t border-slate-200 pb-safe z-50 fixed bottom-0 left-0 w-full rounded-t-[2rem] shadow-[0_-10px_40px_rgba(0,0,0,0.08)]">
-           <div className="flex justify-around items-center h-16 px-2 relative">
-              
-              
-              <button onClick={() => setActiveTab('categories')} className={`flex flex-col items-center gap-1 w-16 transition-colors ${activeTab === 'categories' ? 'text-orange-600' : 'text-slate-400 hover:text-slate-600'}`}>
-                 <Grid size={22} className={activeTab === 'categories' ? 'fill-orange-50 text-orange-600' : ''} />
-                 <span className={`text-[10px] ${activeTab === 'categories' ? 'font-bold' : 'font-medium'}`}>Danh mục</span>
-              </button>
-
-              <Link href="/quick-order" className={`flex flex-col items-center justify-center gap-1 w-16 transition-colors ${activeTab === 'home' ? 'text-orange-600' : 'text-slate-400 hover:text-slate-600'}`}>
-                 <ShoppingBag size={22} className={activeTab === 'home' ? 'fill-orange-50 text-orange-600' : ''} />
-                 <span className={`text-[10px] ${activeTab === 'home' ? 'font-bold' : 'font-medium'}`}>Đặt hàng</span>
-              </Link>
-
-              <div className="w-16"></div>
-
-              <Link href="/cart" className={`flex flex-col items-center justify-center gap-1 w-16 transition-colors relative ${activeTab === 'cart' ? 'text-orange-600' : 'text-slate-400 hover:text-slate-600'}`}>
-                 <ShoppingCart size={22} className={activeTab === 'cart' ? 'fill-orange-50 text-orange-600' : ''} />
-                 {cartCount > 0 && (
-                   <span className="absolute top-0 right-3 bg-red-500 text-white text-[9px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center ring-2 ring-white">
-                     {cartCount}
-                   </span>
-                 )}
-                 <span className={`text-[10px] ${activeTab === 'cart' ? 'font-bold' : 'font-medium'}`}>Giỏ hàng</span>
-              </Link>
-              
-              <button onClick={() => setActiveTab('profile')} className={`flex flex-col items-center gap-1 w-16 transition-colors relative ${activeTab === 'profile' ? 'text-orange-600' : 'text-slate-400 hover:text-slate-600'}`}>
-                 <User size={22} className={activeTab === 'profile' ? 'fill-orange-50 text-orange-600' : ''} />
-                 <span className="absolute top-0.5 right-4 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
-                 <span className={`text-[10px] ${activeTab === 'profile' ? 'font-bold' : 'font-medium'}`}>Cá nhân</span>
-              </button>
-              
-           </div>
-        </nav>
-
-        {/* THE LOGO - FLOATING CENTER FAB */}
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60]">
-           <button 
-              onClick={toggleFabMenu}
-              className={`w-16 h-16 rounded-full flex items-center justify-center bg-white shadow-[0_8px_30px_rgba(249,115,22,0.3)] border-4 transition-all duration-500 active:scale-90 overflow-hidden ${
-                isFabOpen ? 'rotate-[360deg] scale-110 border-orange-200  shadow-orange-500/50' : 'border-slate-50 hover:scale-105 hover:-translate-y-1'
-              }`}
-           >
-              <img src="/logo.png" alt="Nam Viet" className="w-full h-full object-cover" />
-           </button>
-        </div>
+        <MobileBottomNav 
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          cartCount={cartCount}
+          isFabOpen={isFabOpen}
+          toggleFabMenu={toggleFabMenu}
+        />
       </div>
 
       {/* =========================================
@@ -448,145 +351,13 @@ export default function B2BStorefront() {
       ========================================= */}
       <div className="hidden md:flex flex-col h-screen">
         {/* E-COMMERCE HEADER */}
-        <header className="w-full flex flex-col bg-white sticky top-0 z-50 shadow-sm border-b border-slate-200">
-          <div className={`bg-slate-100 flex items-center justify-between px-8 text-[11px] font-medium text-slate-600 overflow-hidden transition-all duration-300 ease-in-out ${isScrolled ? 'h-0 opacity-0' : 'h-8 opacity-100'}`}>
-             <div className="flex items-center gap-4">
-                <span className="flex items-center gap-1 hover:text-orange-600 cursor-pointer"><PhoneCall size={12}/> Hotline: 1900 6669</span>
-                <span className="flex items-center gap-1 hover:text-orange-600 cursor-pointer"><DownloadCloud size={12}/> Tải ứng dụng B2B</span>
-             </div>
-             <div className="flex items-center gap-4">
-               <span className="hover:text-orange-600 cursor-pointer">Quy định Tích điểm</span>
-               <span className="hover:text-orange-600 cursor-pointer">Chính sách Bán Hàng</span>
-                <span className="hover:text-orange-600 cursor-pointer">Chính sách vận chuyển</span>
-                <span className="hover:text-orange-600 cursor-pointer">Hướng dẫn Sử dụng</span>
-                <div className="w-px h-3 bg-slate-300"></div>
-                <span className="flex items-center gap-1 font-bold text-slate-800 cursor-pointer">
-                   <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=HungLe" className="w-4 h-4 rounded-full bg-slate-200" alt="Ava" />
-                   Lê Việt Hùng (Nhà Thuốc An Khang)
-                </span>
-             </div>
-          </div>
-
-          <div className="h-20 px-8 flex items-center justify-between gap-8">
-             <div className="flex items-center gap-2 cursor-pointer shrink-0 group">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg shadow-orange-500/20 group-hover:rotate-[360deg] transition-transform duration-700 bg-white overflow-hidden border-2 border-slate-100">
-                   <img src="/logo.png" alt="Logo Nam Viet" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex flex-col">
-                   <span className="font-black text-2xl tracking-tight leading-none text-slate-800">NAM VIỆT</span>
-                   <span className="text-[10px] font-bold text-orange-600 tracking-widest uppercase">Pharma B2B</span>
-                </div>
-             </div>
-
-             <div className="flex-1 max-w-3xl relative group">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500 transition-colors" size={20} />
-                <input 
-                   type="text" 
-                   placeholder="Tìm kiếm hơn 10.000 sản phẩm theo tên, hoạt chất, bệnh ..." 
-                   className="w-full h-12 pl-12 pr-24 bg-slate-50 border-2 border-slate-100 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all placeholder:text-slate-400"
-                />
-                <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors">
-                   Tìm kiếm
-                </button>
-             </div>
-
-             <div className="flex items-center gap-6 shrink-0">
-                <Link href="/quick-order" className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors group">
-                   <div className="relative">
-                      <Zap size={22} className="group-hover:fill-orange-100 transition-colors" />
-                      <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500"></span>
-                      </span>
-                   </div>
-                   <span className="text-[10px] font-bold uppercase tracking-wider">Đặt thần tốc</span>
-                </Link>
-
-                <div className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors">
-                   <FileText size={22} />
-                   <span className="text-[10px] font-bold uppercase tracking-wider">Đơn hàng</span>
-                </div>
-                
-                <div className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors relative">
-                   <Bell size={22} />
-                   <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white"></span>
-                   <span className="text-[10px] font-bold uppercase tracking-wider">Thông báo</span>
-                </div>
-                <Link href="/cart" className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors relative">
-                   <div className="relative">
-                      <ShoppingCart size={24} />
-                      {cartCount > 0 && (
-                        <span className="absolute -top-2 -right-3 bg-orange-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center ring-2 ring-white shadow-sm animate-in zoom-in">
-                          {cartCount}
-                        </span>
-                      )}
-                   </div>
-                   <span className="text-[10px] font-bold uppercase tracking-wider mt-1">Giỏ hàng</span>
-                </Link>
-             </div>
-          </div>
-
-          <div className="h-12 bg-white flex items-center px-8 gap-6 relative border-t border-slate-100">
-             <div 
-                onMouseEnter={() => setIsMegaMenuOpen(true)}
-                onMouseLeave={() => setIsMegaMenuOpen(false)}
-                className="h-full flex items-center"
-             >
-                <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white h-9 px-4 rounded-lg font-bold text-sm transition-colors">
-                   <Menu size={18} /> Danh Mục Sản Phẩm <ChevronDown size={14} />
-                </button>
-
-                {isMegaMenuOpen && (
-                   <div className="absolute top-12 left-8 w-[800px] bg-white border border-slate-200 shadow-2xl rounded-xl overflow-hidden flex z-50 animate-in slide-in-from-top-2 duration-200">
-                      <div className="w-1/3 bg-slate-50 border-r border-slate-100 p-2">
-                         {CATEGORIES.slice(0, 6).map((cat, idx) => (
-                            <div key={cat.id} className={`flex items-center justify-between p-3 rounded-lg cursor-pointer ${idx === 0 ? 'bg-white text-orange-600 shadow-sm font-bold' : 'text-slate-600 hover:bg-slate-100 font-medium'}`}>
-                               <div className="flex items-center gap-2 text-sm">
-                                  <cat.icon size={16} className={idx === 0 ? 'text-orange-500' : 'text-slate-400'}/> {cat.name}
-                               </div>
-                               <ChevronRight size={14} className={idx === 0 ? 'text-orange-500' : 'text-slate-300'}/>
-                            </div>
-                         ))}
-                      </div>
-                      <div className="w-2/3 p-6 grid grid-cols-2 gap-x-8 gap-y-4">
-                         <div>
-                            <h4 className="font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Hô hấp</h4>
-                            <ul className="space-y-2 text-sm text-slate-500">
-                               <li className="hover:text-orange-600 cursor-pointer">Thuốc ho & Long đờm</li>
-                               <li className="hover:text-orange-600 cursor-pointer">Thuốc giãn phế quản</li>
-                               <li className="hover:text-orange-600 cursor-pointer">Xịt mũi, nhỏ mũi</li>
-                            </ul>
-                         </div>
-                         <div>
-                            <h4 className="font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Cảm cúm & Dị ứng</h4>
-                            <ul className="space-y-2 text-sm text-slate-500">
-                               <li className="hover:text-orange-600 cursor-pointer">Giảm đau, hạ sốt</li>
-                               <li className="hover:text-orange-600 cursor-pointer">Kháng Histamin</li>
-                               <li className="hover:text-orange-600 cursor-pointer">Thuốc nhỏ mắt dị ứng</li>
-                            </ul>
-                         </div>
-                         <div className="col-span-2 mt-4 bg-orange-50 rounded-lg p-4 flex items-center justify-between cursor-pointer hover:bg-orange-100 transition-colors border border-orange-100">
-                            <div>
-                               <p className="text-orange-800 font-bold text-sm mb-1">Mùa lạnh đến rồi!</p>
-                               <p className="text-orange-600 text-xs">Nhập sỉ Combo Hô Hấp giảm ngay 5%</p>
-                            </div>
-                            <img src="https://placehold.co/60x60/ffffff/f97316?text=Promo" className="rounded mix-blend-multiply" alt="Promo"/>
-                         </div>
-                      </div>
-                   </div>
-                )}
-             </div>
-
-             <nav className="flex gap-6 text-sm font-bold text-slate-600">
-                <Link href="/quick-order" className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><Zap size={16} className="text-orange-500"/> Đặt hàng nhanh</Link>
-                <span className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><History size={16} className="text-orange-500"/> Tạo đơn Tự động (Lịch sử)</span>
-                <span className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><Gift size={16} className="text-red-500"/> Khuyến mãi</span>
-                <span className="hover:text-orange-600 cursor-pointer">Sản phẩm mới</span>
-                <Link href="/community" className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><Users size={16} className="text-blue-500"/> Giao lưu & Kết nối</Link>
-                <span className="hover:text-orange-600 cursor-pointer flex items-center gap-1"><BookOpen size={16} className="text-emerald-500"/> Khóa học & Kiến thức</span>
-             </nav>
-          </div>
-        </header>
+        <DesktopHeader 
+            isScrolled={isScrolled}
+            cartCount={cartCount}
+            isMegaMenuOpen={isMegaMenuOpen}
+            setIsMegaMenuOpen={setIsMegaMenuOpen}
+            CATEGORIES={CATEGORIES}
+        />
 
         {/* DESKTOP MAIN CONTENT */}
         <main className="flex-1 overflow-y-auto custom-scrollbar relative pb-10">
@@ -816,6 +587,62 @@ export default function B2BStorefront() {
           </div>
         </main>
       </div>
+
+      {/* OVERLAY CHO MENU TRUNG TÂM (FAB MENU) */}
+      {isFabOpen && (
+         <div className="fixed inset-0 z-[55] bg-slate-900/60 backdrop-blur-sm transition-opacity md:hidden" onClick={toggleFabMenu}>
+            <div className="absolute bottom-28 left-1/2 -translate-x-1/2 flex flex-col gap-3 items-end w-max pb-4">
+               
+               <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Mở Chính sách và Hướng dẫn");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-12 fade-in duration-200 delay-200">
+                  <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Chính sách và Hướng dẫn</span>
+                  <div className="w-10 h-10 rounded-full bg-slate-500 text-white flex items-center justify-center shadow-lg"><FileText size={18}/></div>
+               </button>
+
+               <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Mở Khóa học & Kiến thức");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-10 fade-in duration-200 delay-[160ms]">
+                  <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Khóa học & Kiến thức</span>
+                  <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg"><BookOpen size={18}/></div>
+               </button>
+
+               <Link href="/community" onClick={(e) => { e.stopPropagation(); toggleFabMenu();}} className="flex items-center gap-3 animate-in slide-in-from-bottom-8 fade-in duration-200 delay-[120ms]">
+                  <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Giao lưu & Kết nối</span>
+                  <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg"><Users size={18}/></div>
+               </Link>
+
+               <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Xem Sản phẩm mới");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-6 fade-in duration-200 delay-[80ms]">
+                  <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Sản phẩm mới</span>
+                  <div className="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-lg"><Star size={18}/></div>
+               </button>
+
+               <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Mở Khuyến mãi");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-4 fade-in duration-200 delay-[40ms]">
+                  <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Khuyến mãi</span>
+                  <div className="w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center shadow-lg"><Gift size={18}/></div>
+               </button>
+
+               <button onClick={(e) => { e.stopPropagation(); toggleFabMenu(); showToast("Mở Tạo đơn Tự động");}} className="flex items-center gap-3 animate-in slide-in-from-bottom-2 fade-in duration-200">
+                  <span className="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm">Tạo đơn Tự động</span>
+                  <div className="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center shadow-lg"><History size={18}/></div>
+               </button>
+               
+            </div>
+         </div>
+      )}
+
+      {/* DANH MỤC MOBILE MODAL */}
+      {activeTab === 'categories' && (
+         <div className="fixed inset-0 z-[45] bg-white pt-24 pb-24 px-4 overflow-y-auto animate-in fade-in slide-in-from-bottom-10 md:hidden">
+            <h2 className="text-xl font-black text-slate-800 mb-6">Tất cả Danh mục</h2>
+            <div className="grid grid-cols-3 gap-4">
+               {CATEGORIES.map(cat => (
+                  <div key={cat.id} onClick={() => { showToast(`Mở: ${cat.name}`); setActiveTab('home'); }} className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-50 border border-slate-100 active:scale-95 transition-all">
+                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${cat.bg}`}>
+                        <cat.icon className={cat.color} size={24} strokeWidth={1.5} />
+                     </div>
+                     <span className="text-[11px] text-slate-700 font-bold text-center leading-tight">{cat.name}</span>
+                  </div>
+               ))}
+            </div>
+         </div>
+      )}
 
       {/* TOAST CHUNG (Hoạt động cho cả Mobile và Desktop) */}
       {toast.show && (
