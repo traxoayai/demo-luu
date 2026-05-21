@@ -374,7 +374,7 @@ export default function B2BStorefront() {
           <div className="mb-6 mt-4">
             <div className="px-4 flex justify-between items-center mb-3">
               <h3 className="font-bold text-slate-800 text-lg">
-                Danh mục nổi bật
+                Danh mục tại Dược Nam Việt
               </h3>
               <button className="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center active:scale-95 transition-transform">
                 Xem tất cả <ChevronRight size={14} />
@@ -470,7 +470,7 @@ export default function B2BStorefront() {
           {/* TOP SẢN PHẨM */}
           <div className="px-4 pb-10">
             <h3 className="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
-              <TrendingUp size={20} className="text-blue-500" /> Top Nhập Nhiều
+              <TrendingUp size={20} className="text-blue-500" /> Có thể bạn sẽ cần
             </h3>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
               {TOP_PRODUCTS.slice(0, 3).map((prod, idx) => (
@@ -749,7 +749,7 @@ export default function B2BStorefront() {
             {/* DANH MỤC CỦA BẠN */}
             <section>
               <h3 className="font-black text-slate-800 text-2xl mb-6 tracking-tight">
-                Danh Mục Của Bạn
+                Danh mục tại Dược Nam Việt
               </h3>
               <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
                 {CATEGORIES.map((cat) => (

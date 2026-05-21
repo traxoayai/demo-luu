@@ -251,10 +251,10 @@ export default function CartPage() {
               )}
             </div>
 
-            <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-4 flex gap-3 items-start text-blue-800 mt-4">
+            <div className="bg-orange-50/50 border border-orange-100 rounded-2xl p-4 flex gap-3 items-start text-orange-800 mt-4">
               <AlertCircle
                 size={20}
-                className="text-blue-500 shrink-0 mt-0.5"
+                className="text-orange-500 shrink-0 mt-0.5"
               />
               <p className="text-sm font-medium leading-relaxed">
                 Đơn hàng của bạn đã đạt điều kiện nhận{" "}
