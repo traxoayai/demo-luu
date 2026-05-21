@@ -36,12 +36,23 @@ interface DesktopHeaderProps {
 }
 
 export default function DesktopHeader({
-  isScrolled,
+  isScrolled: externalIsScrolled,
   cartCount,
   isMegaMenuOpen,
   setIsMegaMenuOpen,
   CATEGORIES,
 }: DesktopHeaderProps) {
+  const [internalIsScrolled, setInternalIsScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setInternalIsScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const isScrolled = externalIsScrolled || internalIsScrolled;
   return (
     <header className="w-full flex flex-col bg-white sticky top-0 z-50 shadow-sm border-b border-slate-200">
       <div
