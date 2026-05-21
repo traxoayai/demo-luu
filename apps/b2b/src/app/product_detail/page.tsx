@@ -18,7 +18,7 @@ export default function ProductDetailPage() {
         </h1>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 pt-6 space-y-6">
+      <main className="w-full max-w-7xl mx-auto px-4 pt-6 space-y-6">
         <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row gap-8">
           
           {/* Product Image Area */}
