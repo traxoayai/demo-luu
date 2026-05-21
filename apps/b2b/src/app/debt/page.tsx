@@ -9,7 +9,8 @@ import {
   AlertTriangle,
   Download,
   Calendar,
-  ArrowRight
+  ArrowRight,
+  Eye
 } from "lucide-react";
 import Link from "next/link";
 
@@ -133,7 +134,8 @@ export default function DebtPage() {
           </button>
         </div>
 
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        {/* Desktop Table View */}
+        <div className="hidden md:block bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
@@ -150,17 +152,24 @@ export default function DebtPage() {
                   <tr key={txn.id} className="hover:bg-slate-50 transition-colors">
                     <td className="p-4 font-medium text-slate-600 whitespace-nowrap">{txn.date}</td>
                     <td className="p-4 font-bold text-slate-800">
-                      <div className="flex items-center gap-2">
-                        {txn.type === 'debit' ? (
-                          <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center shrink-0">
-                            <TrendingUp size={12} className="text-red-600" />
-                          </div>
-                        ) : (
-                          <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                            <TrendingDown size={12} className="text-emerald-600" />
-                          </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-2">
+                          {txn.type === 'debit' ? (
+                            <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center shrink-0">
+                              <TrendingUp size={12} className="text-red-600" />
+                            </div>
+                          ) : (
+                            <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                              <TrendingDown size={12} className="text-emerald-600" />
+                            </div>
+                          )}
+                          <span className="line-clamp-1">{txn.description}</span>
+                        </div>
+                        {txn.type === 'debit' && (
+                          <Link href="/order_detail" className="text-blue-600 bg-blue-50 hover:bg-blue-100 px-2 py-1.5 rounded-lg transition-colors flex items-center gap-1 text-[10px] font-bold whitespace-nowrap">
+                            <Eye size={14} /> Chi tiết
+                          </Link>
                         )}
-                        <span className="line-clamp-1">{txn.description}</span>
                       </div>
                     </td>
                     <td className="p-4 text-right font-black text-red-600 whitespace-nowrap">
@@ -177,6 +186,56 @@ export default function DebtPage() {
               </tbody>
             </table>
           </div>
+        </div>
+
+        {/* Mobile Card View */}
+        <div className="md:hidden space-y-3">
+          {DEBT_TRANSACTIONS.map((txn, idx) => (
+            <div key={txn.id} className="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm relative overflow-hidden group hover:border-orange-200 transition-colors">
+              <div className={`absolute top-0 left-0 w-1.5 h-full ${txn.type === 'debit' ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
+              <div className="flex justify-between items-start mb-3 pl-2">
+                <div>
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    {txn.type === 'debit' ? (
+                      <span className="bg-red-50 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1 border border-red-100">
+                        <TrendingUp size={10} /> PHÁT SINH
+                      </span>
+                    ) : (
+                      <span className="bg-emerald-50 text-emerald-600 text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1 border border-emerald-100">
+                        <TrendingDown size={10} /> THANH TOÁN
+                      </span>
+                    )}
+                    <span className="text-[10px] text-slate-400 font-mono bg-slate-50 px-1.5 py-0.5 rounded">{txn.id}</span>
+                  </div>
+                  <h4 className="font-bold text-slate-800 text-sm leading-snug">{txn.description}</h4>
+                </div>
+                <div className="text-right shrink-0 flex flex-col items-end gap-1.5">
+                  <p className="text-[10px] text-slate-500 font-medium mb-1">{txn.date}</p>
+                  {txn.type === 'debit' && (
+                    <Link href="/order_detail" className="text-blue-600 bg-blue-50 hover:bg-blue-100 px-2 py-1.5 rounded-lg transition-colors flex items-center gap-1 text-[10px] font-bold">
+                      <Eye size={12} /> Xem đơn
+                    </Link>
+                  )}
+                </div>
+              </div>
+              
+              <div className="bg-slate-50 rounded-xl p-3 flex justify-between items-center ml-2 border border-slate-100/50">
+                <div>
+                  <p className="text-[10px] text-slate-500 mb-0.5">{txn.type === 'debit' ? 'Ghi nợ (+)' : 'Đã trả (+)'}</p>
+                  <p className={`text-base font-black leading-none tracking-tight ${txn.type === 'debit' ? 'text-red-600' : 'text-emerald-600'}`}>
+                    {txn.amount.toLocaleString()} <span className="text-xs font-semibold">đ</span>
+                  </p>
+                </div>
+                <div className="w-px h-8 bg-slate-200 mx-2"></div>
+                <div className="text-right">
+                  <p className="text-[10px] text-slate-500 mb-0.5">Dư nợ cuối</p>
+                  <p className="text-sm font-black text-slate-900 leading-none tracking-tight">
+                    {txn.balance.toLocaleString()} <span className="text-[10px] font-semibold">đ</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </main>
     </div>

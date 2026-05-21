@@ -29,7 +29,7 @@ export default function ProductCard({
   layout = "vertical",
 }: ProductCardProps) {
   if (layout === "horizontal") {
-    // Layout ngang (dùng trong Top Nhập Nhiều trên mobile)
+    // Layout ngang (dùng trong Top Nhập Nhiều - chính là "Có thể bạn Quan tâm" trên mobile)
     return (
       <div className="flex items-center gap-3 p-3 group hover:bg-slate-50 transition-colors cursor-pointer border-b border-slate-100 last:border-0 relative">
         <div className="w-14 h-14 bg-slate-50 rounded-xl border border-slate-100 overflow-hidden shrink-0 p-1 relative">
@@ -50,7 +50,7 @@ export default function ProductCard({
             </span>
           </div>
         </div>
-        
+
         {/* Action Buttons Overlay (Horizontal) */}
         <div className="absolute top-2 right-12 hidden group-hover:flex gap-1">
           <button
@@ -91,7 +91,6 @@ export default function ProductCard({
   // Layout dọc (dùng cho các lưới sản phẩm thông thường)
   return (
     <div className="bg-white rounded-2xl p-3 md:p-4 border border-slate-200 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-500/10 transition-all flex flex-col group relative overflow-hidden">
-      
       {/* Icon Yêu thích (Tim) - Top Right */}
       <button
         onClick={(e) => {
@@ -101,7 +100,10 @@ export default function ProductCard({
         className="absolute top-2 right-2 z-20 w-8 h-8 bg-white/80 backdrop-blur-md text-slate-300 hover:text-pink-500 rounded-full flex items-center justify-center transition-all duration-300 shadow-sm opacity-0 group-hover:opacity-100 md:-translate-y-2 group-hover:translate-y-0 active:scale-90"
         title="Yêu thích"
       >
-        <Heart size={16} className="fill-transparent hover:fill-pink-500 transition-colors" />
+        <Heart
+          size={16}
+          className="fill-transparent hover:fill-pink-500 transition-colors"
+        />
       </button>
 
       {/* Icon Nghe Âm Thanh (Loa) - Top Left */}

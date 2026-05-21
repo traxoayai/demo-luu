@@ -28,6 +28,7 @@ import {
   BookOpen,
   Package,
   History,
+  Clock,
 } from "lucide-react";
 import Link from "next/link";
 import ChatbotSheet from "../components/overlays/ChatbotSheet";
@@ -221,6 +222,7 @@ export default function B2BStorefront() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showDebtPopup, setShowDebtPopup] = useState(false);
   const [showRevenuePopup, setShowRevenuePopup] = useState(false);
+  const [showVouchersPopup, setShowVouchersPopup] = useState(false);
 
   // Auto-slide banner
   useEffect(() => {
@@ -343,26 +345,26 @@ export default function B2BStorefront() {
                   className="flex-1 cursor-pointer group"
                   onClick={() => setShowDebtPopup(true)}
                 >
-                  <p className="text-[9px] text-slate-400 mb-0.5">Công nợ</p>
-                  <p className="text-[12px] font-bold text-white">5 triệu</p>
+                  <p className="text-[11px] text-slate-400 mb-1">Công nợ</p>
+                  <p className="text-base font-black text-white leading-none">5 triệu</p>
                 </div>
-                <div className="w-px h-8 bg-slate-700 mt-1"></div>
+                <div className="w-px h-10 bg-slate-700 mt-1"></div>
                 <div
                   className="flex-1 cursor-pointer group"
-                  onClick={() => showToast("Xem Vouchers")}
+                  onClick={() => setShowVouchersPopup(true)}
                 >
-                  <p className="text-[9px] text-slate-400 mb-0.5">Vouchers</p>
-                  <p className="text-[12px] font-bold text-emerald-400">
+                  <p className="text-[11px] text-slate-400 mb-1">Vouchers</p>
+                  <p className="text-base font-black text-emerald-400 leading-none">
                     12 mã
                   </p>
                 </div>
-                <div className="w-px h-8 bg-slate-700 mt-1"></div>
+                <div className="w-px h-10 bg-slate-700 mt-1"></div>
                 <div
                   className="flex-1 cursor-pointer group"
                   onClick={() => setShowRevenuePopup(true)}
                 >
-                  <p className="text-[9px] text-slate-400 mb-0.5">Doanh thu</p>
-                  <p className="text-[12px] font-bold text-orange-400">85 tr</p>
+                  <p className="text-[11px] text-slate-400 mb-1">Doanh thu</p>
+                  <p className="text-base font-black text-orange-400 leading-none">85 tr</p>
                 </div>
               </div>
             </div>
@@ -710,7 +712,7 @@ export default function B2BStorefront() {
                   <div className="w-px h-8 bg-slate-300/50"></div>
                   <div
                     className="cursor-pointer group shrink-0"
-                    onClick={() => showToast("Xem Vouchers")}
+                    onClick={() => setShowVouchersPopup(true)}
                   >
                     <p className="text-xs font-semibold text-slate-500 mb-1 group-hover:text-slate-800 transition-colors">
                       Vouchers của bạn
@@ -867,11 +869,11 @@ export default function B2BStorefront() {
               </div>
             </section>
 
-            {/* TOP BÁN CHẠY */}
+            {/* TOP BÁN CHẠY và CÓ THỂ BẠN CẦN*/}
             <section className="mb-10">
               <h3 className="font-black text-slate-800 text-2xl mb-6 tracking-tight flex items-center gap-2">
-                <TrendingUp className="text-orange-500" size={28} /> Bán Chạy
-                Nhất Tháng
+                <TrendingUp className="text-orange-500" size={28} /> Có thể bạn
+                Cần
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {TOP_PRODUCTS.map((prod) => (
@@ -1217,6 +1219,81 @@ export default function B2BStorefront() {
             >
               <History size={18} /> Xem lịch sử thanh toán
             </Link>
+          </div>
+        </div>
+      )}
+
+      {/* VOUCHERS POPUP */}
+      {showVouchersPopup && (
+        <div className="fixed inset-0 z-[100] flex flex-col justify-end">
+          <div
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            onClick={() => setShowVouchersPopup(false)}
+          ></div>
+          <div className="bg-slate-50 w-full rounded-t-3xl p-6 relative z-10 animate-in slide-in-from-bottom flex flex-col h-[85vh] max-w-md mx-auto md:max-w-xl md:h-[80vh] md:rounded-3xl md:mb-10 md:shadow-2xl">
+            <div className="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-6 md:hidden"></div>
+            <button
+              onClick={() => setShowVouchersPopup(false)}
+              className="absolute top-4 right-4 w-8 h-8 bg-slate-200 text-slate-500 rounded-full flex items-center justify-center hover:bg-slate-300 transition-colors"
+            >
+              <X size={16} />
+            </button>
+            <div className="text-center mb-6 shrink-0">
+              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
+                <Gift size={32} />
+              </div>
+              <h3 className="text-2xl font-black text-slate-800">
+                Kho Vouchers
+              </h3>
+              <p className="text-slate-500 text-sm mt-1">
+                Bạn đang có <span className="font-bold text-emerald-600">12 mã</span> khả dụng
+              </p>
+            </div>
+            
+            <div className="overflow-y-auto flex-1 -mx-2 px-2 no-scrollbar space-y-4">
+              {[
+                { type: "freeship", title: "Freeship Đơn từ 3 Triệu", desc: "Giảm tối đa 50k phí vận chuyển", code: "FS3M50K", exp: "30/05/2026" },
+                { type: "discount", title: "Giảm 5% Hóa Đơn Hô Hấp", desc: "Tối đa 200k cho nhóm Hô hấp", code: "HOHAP5", exp: "25/05/2026" },
+                { type: "discount", title: "Giảm 100k Đơn Đầu Tiên", desc: "Dành riêng cho khách hàng mới", code: "NEW100", exp: "31/12/2026" },
+                { type: "freeship", title: "Freeship 100%", desc: "Dành cho Đại lý Vàng (Đơn > 5Tr)", code: "GOLD-FS", exp: "30/06/2026" },
+                { type: "discount", title: "Giảm 10% TPCN", desc: "Nhóm Thực phẩm chức năng", code: "TPCN10", exp: "15/06/2026" },
+                { type: "freeship", title: "Freeship Đơn từ 1 Triệu", desc: "Giảm tối đa 30k phí vận chuyển", code: "FS1M30K", exp: "15/06/2026" },
+                { type: "discount", title: "Giảm 50k Toàn Sàn", desc: "Đơn tối thiểu 2 Triệu", code: "ALL50K", exp: "20/05/2026" },
+                { type: "discount", title: "Giảm 5% Combo Mẹ & Bé", desc: "Tối đa 150k", code: "MOM5", exp: "01/06/2026" },
+                { type: "discount", title: "Tặng 500 Điểm Tích Lũy", desc: "Khi mua SP bất kỳ thuộc nhóm Da liễu", code: "POINT500", exp: "30/05/2026" },
+                { type: "freeship", title: "Freeship Cuối Tuần", desc: "Giảm tối đa 40k. Áp dụng T7, CN", code: "WEEKEND-FS", exp: "31/05/2026" },
+                { type: "discount", title: "Giảm 2% Hàng Kê Đơn", desc: "Áp dụng danh mục cho phép", code: "RX2", exp: "30/06/2026" },
+                { type: "discount", title: "Hoàn Tiền 100k", desc: "Vào ví công nợ. Đơn từ 10 Triệu", code: "CASH100", exp: "15/06/2026" },
+              ].map((v, i) => (
+                <div key={i} className="flex bg-white rounded-2xl shadow-sm overflow-hidden relative group">
+                  <div className={`w-2 shrink-0 ${v.type === "freeship" ? "bg-blue-500" : "bg-emerald-500"}`}></div>
+                  <div className="p-4 flex-1 flex flex-col justify-between relative border-y border-r border-slate-100 rounded-r-2xl">
+                    <div className="absolute top-1/2 -left-1 w-2 h-4 bg-slate-50 rounded-r-full -translate-y-1/2 border-y border-r border-slate-100"></div>
+                    <div className="absolute top-1/2 -right-1 w-2 h-4 bg-slate-50 rounded-l-full -translate-y-1/2 border-y border-l border-slate-100"></div>
+
+                    <div>
+                      <div className="flex justify-between items-start mb-1 gap-2">
+                        <h4 className="font-bold text-slate-800 text-sm">{v.title}</h4>
+                        <span className="text-[10px] font-mono font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200 shrink-0">{v.code}</span>
+                      </div>
+                      <p className="text-xs text-slate-500 pr-4">{v.desc}</p>
+                    </div>
+                    <div className="flex justify-between items-center mt-4 pt-3 border-t border-slate-100 border-dashed">
+                      <span className="text-[10px] font-medium text-red-500 flex items-center gap-1"><Clock size={10} /> HSD: {v.exp}</span>
+                      <button 
+                        onClick={() => {
+                          showToast(`Đã áp dụng mã ${v.code}`);
+                          setShowVouchersPopup(false);
+                        }}
+                        className="text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 px-4 py-1.5 rounded-lg active:scale-95 transition-all shadow-sm shadow-orange-500/20"
+                      >
+                        Dùng ngay
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

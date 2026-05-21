@@ -350,7 +350,7 @@ export default function CartPage() {
               </div>
 
               <button className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-black text-lg py-4 rounded-full shadow-xl shadow-orange-500/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-                Tiến hành Đặt hàng <CheckCircle2 size={20} />
+                Hoàn tất Đơn <CheckCircle2 size={20} />
               </button>
               <div className="flex items-center justify-center gap-2 mt-4 text-xs font-medium text-slate-400">
                 <ShieldCheck size={14} className="text-emerald-500" /> Thanh
