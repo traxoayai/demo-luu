@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Plus } from "lucide-react";
 import ProductInteractiveIcons from "./ProductInteractiveIcons";
+import ProductDetailModal from "../overlays/ProductDetailModal";
 
 interface Product {
   id: string | number;
@@ -29,10 +30,16 @@ export default function ProductCard({
   showToast,
   layout = "vertical",
 }: ProductCardProps) {
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+
   if (layout === "horizontal") {
     // Layout ngang (dùng trong Top Nhập Nhiều - chính là "Có thể bạn Quan tâm" trên mobile)
     return (
-      <div className="flex items-center gap-3 p-3 group hover:bg-slate-50 transition-colors cursor-pointer border-b border-slate-100 last:border-0 relative">
+      <>
+      <div 
+        onClick={() => setIsDetailOpen(true)}
+        className="flex items-center gap-3 p-3 group hover:bg-slate-50 transition-colors cursor-pointer border-b border-slate-100 last:border-0 relative"
+      >
         <div className="w-14 h-14 bg-slate-50 rounded-xl border border-slate-100 overflow-hidden shrink-0 p-1 relative">
           <img
             src={product.image}
@@ -68,6 +75,14 @@ export default function ProductCard({
           <Plus size={16} />
         </button>
       </div>
+      {isDetailOpen && (
+        <ProductDetailModal 
+          product={product} 
+          onClose={() => setIsDetailOpen(false)} 
+          onAddToCart={handleAddToCart}
+        />
+      )}
+      </>
     );
   }
 
@@ -85,7 +100,10 @@ export default function ProductCard({
         </span>
       )}
 
-      <div className="w-full aspect-square bg-slate-50 rounded-xl mb-3 flex items-center justify-center p-2 cursor-pointer relative overflow-hidden">
+      <div 
+        onClick={() => setIsDetailOpen(true)}
+        className="w-full aspect-square bg-slate-50 rounded-xl mb-3 flex items-center justify-center p-2 cursor-pointer relative overflow-hidden"
+      >
         <img
           src={product.image}
           alt={product.name}
@@ -106,7 +124,10 @@ export default function ProductCard({
         </div>
       )}
 
-      <h4 className="text-xs md:text-sm font-bold text-slate-800 leading-snug line-clamp-2 mb-2 md:mb-3 flex-1 group-hover:text-blue-600 transition-colors cursor-pointer">
+      <h4 
+        onClick={() => setIsDetailOpen(true)}
+        className="text-xs md:text-sm font-bold text-slate-800 leading-snug line-clamp-2 mb-2 md:mb-3 flex-1 group-hover:text-blue-600 transition-colors cursor-pointer"
+      >
         {product.name}
       </h4>
 
@@ -131,6 +152,14 @@ export default function ProductCard({
           </button>
         </div>
       </div>
+      
+      {isDetailOpen && (
+        <ProductDetailModal 
+          product={product} 
+          onClose={() => setIsDetailOpen(false)} 
+          onAddToCart={handleAddToCart}
+        />
+      )}
     </div>
   );
 }
