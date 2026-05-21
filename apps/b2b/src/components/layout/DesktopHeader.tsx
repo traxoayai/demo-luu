@@ -134,12 +134,12 @@ export default function DesktopHeader({
             </span>
           </Link>
 
-          <div className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors">
+          <Link href="/orders" className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors">
             <FileText size={22} />
             <span className="text-[10px] font-bold uppercase tracking-wider">
               Đơn hàng
             </span>
-          </div>
+          </Link>
 
           <div className="flex flex-col items-center gap-1 cursor-pointer text-slate-600 hover:text-orange-600 transition-colors relative">
             <Bell size={22} />

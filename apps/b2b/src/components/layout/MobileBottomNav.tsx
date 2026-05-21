@@ -84,8 +84,8 @@ export default function MobileBottomNav({
             </span>
           </Link>
 
-          <button
-            onClick={() => setActiveTab("profile")}
+          <Link
+            href="/profile"
             className={`flex flex-col items-center gap-1 w-16 transition-colors relative ${activeTab === "profile" ? "text-orange-600" : "text-slate-400 hover:text-slate-600"}`}
           >
             <User
@@ -100,7 +100,7 @@ export default function MobileBottomNav({
             >
               Cá nhân
             </span>
-          </button>
+          </Link>
         </div>
       </nav>
 
