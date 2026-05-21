@@ -6,6 +6,8 @@ html, body {
 }
 
 /* Fix iOS Auto-zoom on inputs */
-input, textarea, select {
-  font-size: 16px !important;
+@media screen and (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
 }

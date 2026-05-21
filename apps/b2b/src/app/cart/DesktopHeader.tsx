@@ -33,6 +33,7 @@ interface DesktopHeaderProps {
   isMegaMenuOpen: boolean;
   setIsMegaMenuOpen: (isOpen: boolean) => void;
   CATEGORIES: Category[];
+  onSearchClick?: () => void;
 }
 
 export default function DesktopHeader({
@@ -41,6 +42,7 @@ export default function DesktopHeader({
   isMegaMenuOpen,
   setIsMegaMenuOpen,
   CATEGORIES,
+  onSearchClick,
 }: DesktopHeaderProps) {
   const [internalIsScrolled, setInternalIsScrolled] = React.useState(false);
 
@@ -117,10 +119,15 @@ export default function DesktopHeader({
           />
           <input
             type="text"
+            readOnly
+            onClick={onSearchClick}
             placeholder="Tìm kiếm hơn 10.000 sản phẩm theo tên, hoạt chất, bệnh ..."
-            className="w-full h-12 pl-12 pr-24 bg-slate-50 border-2 border-slate-100 focus:border-orange-500 focus:bg-white rounded-xl text-sm font-medium outline-none transition-all placeholder:text-slate-400"
+            className="w-full h-12 pl-12 pr-24 bg-slate-50 border-2 border-slate-100 hover:border-orange-500 hover:bg-white rounded-xl text-base md:text-sm font-medium outline-none transition-all placeholder:text-slate-400 cursor-pointer"
           />
-          <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors">
+          <button 
+            onClick={onSearchClick}
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors"
+          >
             Tìm kiếm
           </button>
         </div>

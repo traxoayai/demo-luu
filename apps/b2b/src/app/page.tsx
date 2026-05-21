@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import ChatbotSheet from "../components/overlays/ChatbotSheet";
+import GlobalSearchModal from "../components/overlays/GlobalSearchModal";
 import DesktopHeader from "../components/layout/DesktopHeader";
 import MobileBottomNav from "../components/layout/MobileBottomNav";
 import ProductCard from "../components/shared/ProductCard";
@@ -217,6 +218,7 @@ export default function B2BStorefront() {
   const [currentBanner, setCurrentBanner] = useState(0);
   const [isFabOpen, setIsFabOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showBotMessage, setShowBotMessage] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -273,7 +275,7 @@ export default function B2BStorefront() {
         {/* FLOATING SEARCH BAR */}
         <div className="fixed top-6 left-4 z-[48]">
           <button
-            onClick={() => showToast("Mở tìm kiếm")}
+            onClick={() => setIsSearchOpen(true)}
             className="flex items-center gap-2 bg-black/30 backdrop-blur-md border border-white/20 text-white pl-3 pr-4 py-2.5 rounded-full shadow-lg active:scale-95 transition-transform"
           >
             <Search size={18} strokeWidth={2.5} />
@@ -656,6 +658,7 @@ export default function B2BStorefront() {
           isMegaMenuOpen={isMegaMenuOpen}
           setIsMegaMenuOpen={setIsMegaMenuOpen}
           CATEGORIES={CATEGORIES}
+          onSearchClick={() => setIsSearchOpen(true)}
         />
 
         {/* DESKTOP MAIN CONTENT */}
@@ -1179,6 +1182,7 @@ export default function B2BStorefront() {
       </div>
 
       <ChatbotSheet isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      <GlobalSearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       {/* DEBT POPUP */}
       {showDebtPopup && (
         <div className="fixed inset-0 z-[60] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
