@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -13,9 +14,7 @@ import {
   Wallet,
   CheckCircle2,
   Clock,
-  AlertCircle,
-  FileText,
-  Eye
+  AlertCircle
 } from "lucide-react";
 import Link from "next/link";
 
@@ -54,7 +53,7 @@ const ORDERS_MOCK = [
     itemsCount: 12,
   },
 ];
-
+// namviet-erp-monorepo/apps/b2b/src/app/orders/page.tsx
 export default function OrdersPage() {
   const [toast, setToast] = useState({ show: false, msg: "" });
 
@@ -184,28 +183,22 @@ export default function OrdersPage() {
               </div>
 
               {/* Actions */}
-              <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 pt-4 border-t border-slate-100">
-                <Link
-                  href="/order_detail"
-                  className="flex items-center justify-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-white px-3 py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all active:scale-95 shadow-sm"
-                >
-                  <Eye size={16} /> Xem chi tiết
-                </Link>
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-100">
                 <button
                   onClick={() => showToast(`Đang theo dõi: ${order.id}`)}
-                  className="flex items-center justify-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all active:scale-95"
+                  className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-2.5 rounded-xl text-sm font-bold transition-all active:scale-95"
                 >
-                  <Truck size={16} /> Theo dõi
+                  <Truck size={16} /> Theo dõi vận đơn
                 </button>
                 <button
-                  onClick={() => showToast(`Xem Hóa Đơn VAT cho: ${order.id}`)}
-                  className="flex items-center justify-center gap-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all active:scale-95"
+                  onClick={() => showToast(`Yêu cầu đổi trả cho: ${order.id}`)}
+                  className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-slate-50 hover:bg-slate-100 text-slate-700 px-4 py-2.5 rounded-xl text-sm font-bold transition-all active:scale-95 border border-slate-200"
                 >
-                  <FileText size={16} /> HĐ VAT
+                  <RotateCcw size={16} /> Đổi/Trả
                 </button>
                 <button
                   onClick={() => showToast(`Đã thêm ${order.id} vào giỏ hàng`)}
-                  className="flex items-center justify-center gap-1.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-3 py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all active:scale-95 shadow-md shadow-orange-500/30 md:ml-auto mt-1 md:mt-0"
+                  className="w-full md:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all active:scale-95 shadow-md shadow-orange-500/30 md:ml-auto mt-2 md:mt-0"
                 >
                   <ShoppingCart size={16} /> Mua lại
                 </button>

@@ -32,7 +32,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import ChatbotSheet from "../components/overlays/ChatbotSheet";
-import GlobalSearchModal from "../components/overlays/GlobalSearchModal";
 import DesktopHeader from "../components/layout/DesktopHeader";
 import MobileBottomNav from "../components/layout/MobileBottomNav";
 import ProductCard from "../components/shared/ProductCard";
@@ -218,7 +217,6 @@ export default function B2BStorefront() {
   const [currentBanner, setCurrentBanner] = useState(0);
   const [isFabOpen, setIsFabOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showBotMessage, setShowBotMessage] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -275,7 +273,7 @@ export default function B2BStorefront() {
         {/* FLOATING SEARCH BAR */}
         <div className="fixed top-6 left-4 z-[48]">
           <button
-            onClick={() => setIsSearchOpen(true)}
+            onClick={() => showToast("Mở tìm kiếm")}
             className="flex items-center gap-2 bg-black/30 backdrop-blur-md border border-white/20 text-white pl-3 pr-4 py-2.5 rounded-full shadow-lg active:scale-95 transition-transform"
           >
             <Search size={18} strokeWidth={2.5} />
@@ -348,7 +346,9 @@ export default function B2BStorefront() {
                   onClick={() => setShowDebtPopup(true)}
                 >
                   <p className="text-[11px] text-slate-400 mb-1">Công nợ</p>
-                  <p className="text-base font-black text-white leading-none">5 triệu</p>
+                  <p className="text-base font-black text-white leading-none">
+                    5 triệu
+                  </p>
                 </div>
                 <div className="w-px h-10 bg-slate-700 mt-1"></div>
                 <div
@@ -366,7 +366,9 @@ export default function B2BStorefront() {
                   onClick={() => setShowRevenuePopup(true)}
                 >
                   <p className="text-[11px] text-slate-400 mb-1">Doanh thu</p>
-                  <p className="text-base font-black text-orange-400 leading-none">85 tr</p>
+                  <p className="text-base font-black text-orange-400 leading-none">
+                    85 tr
+                  </p>
                 </div>
               </div>
             </div>
@@ -376,7 +378,7 @@ export default function B2BStorefront() {
           <div className="mb-6 mt-4">
             <div className="px-4 flex justify-between items-center mb-3">
               <h3 className="font-bold text-slate-800 text-lg">
-                Danh mục tại Dược Nam Việt
+                Danh mục của Dược Nam Việt
               </h3>
               <button className="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center active:scale-95 transition-transform">
                 Xem tất cả <ChevronRight size={14} />
@@ -472,7 +474,8 @@ export default function B2BStorefront() {
           {/* TOP SẢN PHẨM */}
           <div className="px-4 pb-10">
             <h3 className="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
-              <TrendingUp size={20} className="text-blue-500" /> Có thể bạn sẽ cần
+              <TrendingUp size={20} className="text-blue-500" /> Có thể bạn Quan
+              tâm
             </h3>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
               {TOP_PRODUCTS.slice(0, 3).map((prod, idx) => (
@@ -658,7 +661,6 @@ export default function B2BStorefront() {
           isMegaMenuOpen={isMegaMenuOpen}
           setIsMegaMenuOpen={setIsMegaMenuOpen}
           CATEGORIES={CATEGORIES}
-          onSearchClick={() => setIsSearchOpen(true)}
         />
 
         {/* DESKTOP MAIN CONTENT */}
@@ -752,7 +754,7 @@ export default function B2BStorefront() {
             {/* DANH MỤC CỦA BẠN */}
             <section>
               <h3 className="font-black text-slate-800 text-2xl mb-6 tracking-tight">
-                Danh mục tại Dược Nam Việt
+                Danh Mục của Dược Nam Việt
               </h3>
               <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
                 {CATEGORIES.map((cat) => (
@@ -1182,7 +1184,6 @@ export default function B2BStorefront() {
       </div>
 
       <ChatbotSheet isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
-      <GlobalSearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       {/* DEBT POPUP */}
       {showDebtPopup && (
         <div className="fixed inset-0 z-[60] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
@@ -1250,41 +1251,126 @@ export default function B2BStorefront() {
                 Kho Vouchers
               </h3>
               <p className="text-slate-500 text-sm mt-1">
-                Bạn đang có <span className="font-bold text-emerald-600">12 mã</span> khả dụng
+                Bạn đang có{" "}
+                <span className="font-bold text-emerald-600">12 mã</span> khả
+                dụng
               </p>
             </div>
-            
+
             <div className="overflow-y-auto flex-1 -mx-2 px-2 no-scrollbar space-y-4">
               {[
-                { type: "freeship", title: "Freeship Đơn từ 3 Triệu", desc: "Giảm tối đa 50k phí vận chuyển", code: "FS3M50K", exp: "30/05/2026" },
-                { type: "discount", title: "Giảm 5% Hóa Đơn Hô Hấp", desc: "Tối đa 200k cho nhóm Hô hấp", code: "HOHAP5", exp: "25/05/2026" },
-                { type: "discount", title: "Giảm 100k Đơn Đầu Tiên", desc: "Dành riêng cho khách hàng mới", code: "NEW100", exp: "31/12/2026" },
-                { type: "freeship", title: "Freeship 100%", desc: "Dành cho Đại lý Vàng (Đơn > 5Tr)", code: "GOLD-FS", exp: "30/06/2026" },
-                { type: "discount", title: "Giảm 10% TPCN", desc: "Nhóm Thực phẩm chức năng", code: "TPCN10", exp: "15/06/2026" },
-                { type: "freeship", title: "Freeship Đơn từ 1 Triệu", desc: "Giảm tối đa 30k phí vận chuyển", code: "FS1M30K", exp: "15/06/2026" },
-                { type: "discount", title: "Giảm 50k Toàn Sàn", desc: "Đơn tối thiểu 2 Triệu", code: "ALL50K", exp: "20/05/2026" },
-                { type: "discount", title: "Giảm 5% Combo Mẹ & Bé", desc: "Tối đa 150k", code: "MOM5", exp: "01/06/2026" },
-                { type: "discount", title: "Tặng 500 Điểm Tích Lũy", desc: "Khi mua SP bất kỳ thuộc nhóm Da liễu", code: "POINT500", exp: "30/05/2026" },
-                { type: "freeship", title: "Freeship Cuối Tuần", desc: "Giảm tối đa 40k. Áp dụng T7, CN", code: "WEEKEND-FS", exp: "31/05/2026" },
-                { type: "discount", title: "Giảm 2% Hàng Kê Đơn", desc: "Áp dụng danh mục cho phép", code: "RX2", exp: "30/06/2026" },
-                { type: "discount", title: "Hoàn Tiền 100k", desc: "Vào ví công nợ. Đơn từ 10 Triệu", code: "CASH100", exp: "15/06/2026" },
+                {
+                  type: "freeship",
+                  title: "Freeship Đơn từ 3 Triệu",
+                  desc: "Giảm tối đa 50k phí vận chuyển",
+                  code: "FS3M50K",
+                  exp: "30/05/2026",
+                },
+                {
+                  type: "discount",
+                  title: "Giảm 5% Hóa Đơn Hô Hấp",
+                  desc: "Tối đa 200k cho nhóm Hô hấp",
+                  code: "HOHAP5",
+                  exp: "25/05/2026",
+                },
+                {
+                  type: "discount",
+                  title: "Giảm 100k Đơn Đầu Tiên",
+                  desc: "Dành riêng cho khách hàng mới",
+                  code: "NEW100",
+                  exp: "31/12/2026",
+                },
+                {
+                  type: "freeship",
+                  title: "Freeship 100%",
+                  desc: "Dành cho Đại lý Vàng (Đơn > 5Tr)",
+                  code: "GOLD-FS",
+                  exp: "30/06/2026",
+                },
+                {
+                  type: "discount",
+                  title: "Giảm 10% TPCN",
+                  desc: "Nhóm Thực phẩm chức năng",
+                  code: "TPCN10",
+                  exp: "15/06/2026",
+                },
+                {
+                  type: "freeship",
+                  title: "Freeship Đơn từ 1 Triệu",
+                  desc: "Giảm tối đa 30k phí vận chuyển",
+                  code: "FS1M30K",
+                  exp: "15/06/2026",
+                },
+                {
+                  type: "discount",
+                  title: "Giảm 50k Toàn Sàn",
+                  desc: "Đơn tối thiểu 2 Triệu",
+                  code: "ALL50K",
+                  exp: "20/05/2026",
+                },
+                {
+                  type: "discount",
+                  title: "Giảm 5% Combo Mẹ & Bé",
+                  desc: "Tối đa 150k",
+                  code: "MOM5",
+                  exp: "01/06/2026",
+                },
+                {
+                  type: "discount",
+                  title: "Tặng 500 Điểm Tích Lũy",
+                  desc: "Khi mua SP bất kỳ thuộc nhóm Da liễu",
+                  code: "POINT500",
+                  exp: "30/05/2026",
+                },
+                {
+                  type: "freeship",
+                  title: "Freeship Cuối Tuần",
+                  desc: "Giảm tối đa 40k. Áp dụng T7, CN",
+                  code: "WEEKEND-FS",
+                  exp: "31/05/2026",
+                },
+                {
+                  type: "discount",
+                  title: "Giảm 2% Hàng Kê Đơn",
+                  desc: "Áp dụng danh mục cho phép",
+                  code: "RX2",
+                  exp: "30/06/2026",
+                },
+                {
+                  type: "discount",
+                  title: "Hoàn Tiền 100k",
+                  desc: "Vào ví công nợ. Đơn từ 10 Triệu",
+                  code: "CASH100",
+                  exp: "15/06/2026",
+                },
               ].map((v, i) => (
-                <div key={i} className="flex bg-white rounded-2xl shadow-sm overflow-hidden relative group">
-                  <div className={`w-2 shrink-0 ${v.type === "freeship" ? "bg-blue-500" : "bg-emerald-500"}`}></div>
+                <div
+                  key={i}
+                  className="flex bg-white rounded-2xl shadow-sm overflow-hidden relative group"
+                >
+                  <div
+                    className={`w-2 shrink-0 ${v.type === "freeship" ? "bg-blue-500" : "bg-emerald-500"}`}
+                  ></div>
                   <div className="p-4 flex-1 flex flex-col justify-between relative border-y border-r border-slate-100 rounded-r-2xl">
                     <div className="absolute top-1/2 -left-1 w-2 h-4 bg-slate-50 rounded-r-full -translate-y-1/2 border-y border-r border-slate-100"></div>
                     <div className="absolute top-1/2 -right-1 w-2 h-4 bg-slate-50 rounded-l-full -translate-y-1/2 border-y border-l border-slate-100"></div>
 
                     <div>
                       <div className="flex justify-between items-start mb-1 gap-2">
-                        <h4 className="font-bold text-slate-800 text-sm">{v.title}</h4>
-                        <span className="text-[10px] font-mono font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200 shrink-0">{v.code}</span>
+                        <h4 className="font-bold text-slate-800 text-sm">
+                          {v.title}
+                        </h4>
+                        <span className="text-[10px] font-mono font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200 shrink-0">
+                          {v.code}
+                        </span>
                       </div>
                       <p className="text-xs text-slate-500 pr-4">{v.desc}</p>
                     </div>
                     <div className="flex justify-between items-center mt-4 pt-3 border-t border-slate-100 border-dashed">
-                      <span className="text-[10px] font-medium text-red-500 flex items-center gap-1"><Clock size={10} /> HSD: {v.exp}</span>
-                      <button 
+                      <span className="text-[10px] font-medium text-red-500 flex items-center gap-1">
+                        <Clock size={10} /> HSD: {v.exp}
+                      </span>
+                      <button
                         onClick={() => {
                           showToast(`Đã áp dụng mã ${v.code}`);
                           setShowVouchersPopup(false);
