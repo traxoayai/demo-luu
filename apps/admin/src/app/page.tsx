@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { 
   Wallet, Package, AlertTriangle, UserPlus, Clock,
   Home as HomeIcon, Grid, X, Zap, ScanBarcode, FileText,
-  Megaphone, CheckSquare, Bell, User as UserIcon
+  Megaphone, CheckSquare, Bell, User as UserIcon, Settings
 } from 'lucide-react';
 import ChatbotSheet from '../components/overlays/ChatbotSheet';
 import ForumView from '../components/views/ForumView';
